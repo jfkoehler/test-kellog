@@ -1,0 +1,1191 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>spaCy &#8212; Test 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: ''
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+</style>
+<div class="section" id="spaCy">
+<h1>spaCy<a class="headerlink" href="#spaCy" title="Permalink to this headline">¶</a></h1>
+<p>Make sure you’ve installed spacy. If not, run the cell below after
+uncommenting it. We will cover the capabilities we examined in
+<code class="docutils literal"><span class="pre">scikitlearn</span></code> as well as some additional functionality with <code class="docutils literal"><span class="pre">spaCy</span></code>
+including:</p>
+<ul class="simple">
+<li>Annotating Text</li>
+<li>Tokenizing Text</li>
+<li>POS tagging and dependencies</li>
+<li>Named entity extraction</li>
+<li>Similarity</li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#%%bash</span>
+<span class="c1">#pip install spacy</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">spacy</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;en&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s1">&#39;This is a sentence about a dog, a priest, and a bicycle in North Dakota named Microsoft.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="The-spaCy-pipeline">
+<h2>The spaCy pipeline<a class="headerlink" href="#The-spaCy-pipeline" title="Permalink to this headline">¶</a></h2>
+<div class="figure">
+<img alt="" src="images/spacy_pipeline.svg" /></div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">((</span><span class="n">word</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">word</span><span class="o">.</span><span class="n">pos_</span><span class="p">,</span> <span class="n">word</span><span class="o">.</span><span class="n">dep_</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(&#39;This&#39;, &#39;DET&#39;, &#39;nsubj&#39;)
+(&#39;is&#39;, &#39;VERB&#39;, &#39;ROOT&#39;)
+(&#39;a&#39;, &#39;DET&#39;, &#39;det&#39;)
+(&#39;sentence&#39;, &#39;NOUN&#39;, &#39;attr&#39;)
+(&#39;about&#39;, &#39;ADP&#39;, &#39;prep&#39;)
+(&#39;a&#39;, &#39;DET&#39;, &#39;det&#39;)
+(&#39;dog&#39;, &#39;NOUN&#39;, &#39;pobj&#39;)
+(&#39;,&#39;, &#39;PUNCT&#39;, &#39;punct&#39;)
+(&#39;a&#39;, &#39;DET&#39;, &#39;det&#39;)
+(&#39;priest&#39;, &#39;NOUN&#39;, &#39;appos&#39;)
+(&#39;,&#39;, &#39;PUNCT&#39;, &#39;punct&#39;)
+(&#39;and&#39;, &#39;CCONJ&#39;, &#39;cc&#39;)
+(&#39;a&#39;, &#39;DET&#39;, &#39;det&#39;)
+(&#39;bicycle&#39;, &#39;NOUN&#39;, &#39;conj&#39;)
+(&#39;in&#39;, &#39;ADP&#39;, &#39;prep&#39;)
+(&#39;North&#39;, &#39;PROPN&#39;, &#39;compound&#39;)
+(&#39;Dakota&#39;, &#39;PROPN&#39;, &#39;pobj&#39;)
+(&#39;named&#39;, &#39;VERB&#39;, &#39;acl&#39;)
+(&#39;Microsoft&#39;, &#39;PROPN&#39;, &#39;oprd&#39;)
+(&#39;.&#39;, &#39;PUNCT&#39;, &#39;punct&#39;)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+This
+is
+a
+sentence
+about
+a
+dog
+,
+a
+priest
+,
+and
+a
+bicycle
+in
+North
+Dakota
+named
+Microsoft
+.
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">lemma_</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">pos_</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">tag_</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">dep_</span><span class="p">,</span>
+          <span class="n">token</span><span class="o">.</span><span class="n">shape_</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">is_alpha</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">is_stop</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+This this DET DT nsubj Xxxx True False
+is be VERB VBZ ROOT xx True True
+a a DET DT det x True True
+sentence sentence NOUN NN attr xxxx True False
+about about ADP IN prep xxxx True True
+a a DET DT det x True True
+dog dog NOUN NN pobj xxx True False
+, , PUNCT , punct , False False
+a a DET DT det x True True
+priest priest NOUN NN appos xxxx True False
+, , PUNCT , punct , False False
+and and CCONJ CC cc xxx True True
+a a DET DT det x True True
+bicycle bicycle NOUN NN conj xxxx True False
+in in ADP IN prep xx True True
+North north PROPN NNP compound Xxxxx True False
+Dakota dakota PROPN NNP pobj Xxxxx True False
+named name VERB VBD acl xxxx True False
+Microsoft microsoft PROPN NNP oprd Xxxxx True False
+. . PUNCT . punct . False False
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="POS-Tags-and-Dependency-Parsing">
+<h2>POS Tags and Dependency Parsing<a class="headerlink" href="#POS-Tags-and-Dependency-Parsing" title="Permalink to this headline">¶</a></h2>
+<p>spaCy POS Tags: <a class="reference external" href="https://spacy.io/api/annotation">https://spacy.io/api/annotation</a></p>
+<p>spaCy Dedpendencies: <a class="reference external" href="https://spacy.io/usage/linguistic-features">https://spacy.io/usage/linguistic-features</a></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">spacy</span> <span class="k">import</span> <span class="n">displacy</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s1">&#39;This is a sentence&#39;</span><span class="p">)</span>
+<span class="n">opts</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="s1">&#39;bg&#39;</span><span class="p">:</span> <span class="s1">&#39;lightblue&#39;</span><span class="p">,</span> <span class="s1">&#39;compact&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+<span class="n">displacy</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;dep&#39;</span><span class="p">,</span> <span class="n">jupyter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="n">opts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="0" class="displacy" width="650" height="287.0" style="max-width: none; height: 287.0px; color: white; background: lightblue; font-family: Arial">
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="197.0">
+    <tspan class="displacy-word" fill="currentColor" x="50">This</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="50">DET</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="197.0">
+    <tspan class="displacy-word" fill="currentColor" x="200">is</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="200">VERB</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="197.0">
+    <tspan class="displacy-word" fill="currentColor" x="350">a</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="350">DET</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="197.0">
+    <tspan class="displacy-word" fill="currentColor" x="500">sentence</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="500">NOUN</tspan>
+</text>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-0-0" stroke-width="2px" d="M62,152.0 62,127.0 197.0,127.0 197.0,152.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
+        <textPath xlink:href="#arrow-0-0" class="displacy-label" startOffset="50%" fill="currentColor" text-anchor="middle">nsubj</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M62,154.0 L58,146.0 66,146.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-0-1" stroke-width="2px" d="M362,152.0 362,127.0 497.0,127.0 497.0,152.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
+        <textPath xlink:href="#arrow-0-1" class="displacy-label" startOffset="50%" fill="currentColor" text-anchor="middle">det</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M362,154.0 L358,146.0 366,146.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-0-2" stroke-width="2px" d="M212,152.0 212,102.0 500.0,102.0 500.0,152.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
+        <textPath xlink:href="#arrow-0-2" class="displacy-label" startOffset="50%" fill="currentColor" text-anchor="middle">attr</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M500.0,154.0 L504.0,146.0 496.0,146.0" fill="currentColor"/>
+</g>
+</svg></div>
+</div>
+</div>
+<div class="section" id="Named-Entity-Recognition">
+<h2>Named Entity Recognition<a class="headerlink" href="#Named-Entity-Recognition" title="Permalink to this headline">¶</a></h2>
+<p>spaCy entities: <a class="reference external" href="https://spacy.io/usage/linguistic-features#entity-types">https://spacy.io/usage/linguistic-features#entity-types</a></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s1">&#39;Apple is looking at buying U.K. startup for $1 billion. My dog does not eat Apples.&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">ents</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ent</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">start_char</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">end_char</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">label_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Apple 0 5 ORG
+U.K. 27 31 GPE
+$1 billion 44 54 MONEY
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">displacy</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;ent&#39;</span><span class="p">,</span> <span class="n">jupyter</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="entities" style="line-height: 2.5">
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    Apple
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+ is looking at buying
+<mark class="entity" style="background: #feca74; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    U.K.
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">GPE</span>
+</mark>
+ startup for
+<mark class="entity" style="background: #e4e7d2; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    $1 billion
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">MONEY</span>
+</mark>
+. My dog does not eat Apples.</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ny_donors.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>id</th>
+      <th>teacher_id</th>
+      <th>teacher_prefix</th>
+      <th>school_state</th>
+      <th>project_submitted_datetime</th>
+      <th>project_grade_category</th>
+      <th>project_subject_categories</th>
+      <th>project_subject_subcategories</th>
+      <th>project_title</th>
+      <th>project_essay_1</th>
+      <th>project_essay_2</th>
+      <th>project_essay_3</th>
+      <th>project_essay_4</th>
+      <th>project_resource_summary</th>
+      <th>teacher_number_of_previously_posted_projects</th>
+      <th>project_is_approved</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>13</td>
+      <td>p173555</td>
+      <td>9b7f355e34bc9ca5740779b69ee14d8e</td>
+      <td>Mrs.</td>
+      <td>NY</td>
+      <td>2016-11-15 22:13:39</td>
+      <td>Grades 3-5</td>
+      <td>Literacy &amp; Language</td>
+      <td>Literature &amp; Writing</td>
+      <td>Extra! Extra! Read all about it!!  We love to ...</td>
+      <td>Each day my fifth graders walk into our \"home...</td>
+      <td>My students have had a taste of good reading! ...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>My students need good books, with life lessons...</td>
+      <td>5.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>21</td>
+      <td>p116615</td>
+      <td>b3593a375f2cf7fd4469b928ffac1c95</td>
+      <td>Mrs.</td>
+      <td>NY</td>
+      <td>2016-09-30 08:12:37</td>
+      <td>Grades PreK-2</td>
+      <td>Applied Learning, Music &amp; The Arts</td>
+      <td>Early Development, Performing Arts</td>
+      <td>Oral Language Development through the use of p...</td>
+      <td>Teaching kindergarten in a diverse district po...</td>
+      <td>Students don't often get the chance to 'play' ...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>My students need the opportunity to develop or...</td>
+      <td>0.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>30</td>
+      <td>p081434</td>
+      <td>17563b7d138a9ca1e7308f0f480e7d09</td>
+      <td>Ms.</td>
+      <td>NY</td>
+      <td>2016-12-06 21:19:44</td>
+      <td>Grades PreK-2</td>
+      <td>Health &amp; Sports, Special Needs</td>
+      <td>Health &amp; Wellness, Special Needs</td>
+      <td>Seating Like a Boss- Our 21st Century Room</td>
+      <td>\"Great job buddy!\" is something I hear every...</td>
+      <td>In order to promote essential learning skills ...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>My students need an opportunity to sit and wor...</td>
+      <td>9.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>32</td>
+      <td>p156550</td>
+      <td>a902ce7ebdce6f236873d6b443c3ca08</td>
+      <td>Ms.</td>
+      <td>NY</td>
+      <td>2017-03-30 20:05:08</td>
+      <td>Grades 9-12</td>
+      <td>Applied Learning, Special Needs</td>
+      <td>Other, Special Needs</td>
+      <td>Keeping Students Focused with Fun and Technology!</td>
+      <td>Attending a District 75 high school in Bronx, ...</td>
+      <td>With a classroom lacking technology, student i...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>My students need a wider variety of Interactiv...</td>
+      <td>0.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>59</td>
+      <td>p186381</td>
+      <td>da67f09a612a32fa30c9c80bed7e6365</td>
+      <td>Mrs.</td>
+      <td>NY</td>
+      <td>2016-09-24 11:36:26</td>
+      <td>Grades PreK-2</td>
+      <td>Literacy &amp; Language</td>
+      <td>Literacy, Literature &amp; Writing</td>
+      <td>Listening &amp; Learning in First Grade</td>
+      <td>Who doesn't enjoy listening to a great story? ...</td>
+      <td>The Listening Center in the classroom is alway...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>My students need wireless headphones to use in...</td>
+      <td>9.0</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">essay</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">project_essay_1</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">essay</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[19]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>&quot;I have the amazing opportunity to collaborate with over 500 students in our STEM (Science, Technology, Engineering, Math) Inquiry-Based Learning Lab.  We are located in a small, rural community in Western New York.  (We can see cows from our classroom!)  I work with every student in our K-6 population on STEM project based learning.  \\r\\n\\r\\nWe would like to utilize engineering, robotics, and programming to develop solutions to real-world STEM problems.  Please help us move our youth&#39;s focus from passive consumers of technology to innovative creators of programs and inventions.  This will allow our students to begin thinking about career paths at an early-age and to develop confidence with a positive mindset concerning the STEM content areas.&quot;
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">essay</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">displacy</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;ent&#39;</span><span class="p">,</span> <span class="n">jupyter</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="entities" style="line-height: 2.5">I have the amazing opportunity to collaborate with over
+<mark class="entity" style="background: #e4e7d2; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    500
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">CARDINAL</span>
+</mark>
+ students in our
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    STEM
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+ (
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    Science, Technology, Engineering
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+, Math) Inquiry-Based Learning Lab.  We are located in a small, rural community in
+<mark class="entity" style="background: #ff9561; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    Western New York
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">LOC</span>
+</mark>
+.  (We can see cows from our classroom!)
+<mark class="entity" style="background: #c887fb; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">NORP</span>
+</mark>
+I work with every student in our
+<mark class="entity" style="background: #aa9cfc; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    K-6
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">PERSON</span>
+</mark>
+ population on
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    STEM
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+ project based learning.  \r\n\r\nWe would like to utilize engineering, robotics, and programming to develop solutions to real-world
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    STEM
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+ problems.  Please help us move our youth's focus from passive consumers of technology to innovative creators of programs and inventions.  This will allow our students to begin thinking about career paths at an
+<mark class="entity" style="background: #bfe1d9; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    early-age
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">DATE</span>
+</mark>
+ and to develop confidence with a positive mindset concerning the
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    STEM
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+ content areas.</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">doc</span><span class="o">.</span><span class="n">user_data</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">project_title</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+<span class="n">displacy</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;ent&#39;</span><span class="p">,</span> <span class="n">jupyter</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<h2 style="margin: 0">And on this Farm, There Was Some Raspberry Robots?</h2>
+
+<div class="entities" style="line-height: 2.5">I have the amazing opportunity to collaborate with over
+<mark class="entity" style="background: #e4e7d2; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    500
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">CARDINAL</span>
+</mark>
+ students in our
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    STEM
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+ (
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    Science, Technology, Engineering
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+, Math) Inquiry-Based Learning Lab.  We are located in a small, rural community in
+<mark class="entity" style="background: #ff9561; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    Western New York
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">LOC</span>
+</mark>
+.  (We can see cows from our classroom!)
+<mark class="entity" style="background: #c887fb; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">NORP</span>
+</mark>
+I work with every student in our
+<mark class="entity" style="background: #aa9cfc; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    K-6
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">PERSON</span>
+</mark>
+ population on
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    STEM
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+ project based learning.  \r\n\r\nWe would like to utilize engineering, robotics, and programming to develop solutions to real-world
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    STEM
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+ problems.  Please help us move our youth's focus from passive consumers of technology to innovative creators of programs and inventions.  This will allow our students to begin thinking about career paths at an
+<mark class="entity" style="background: #bfe1d9; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    early-age
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">DATE</span>
+</mark>
+ and to develop confidence with a positive mindset concerning the
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+    STEM
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+ content areas.</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">sents</span> <span class="o">=</span> <span class="n">essay</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">sents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[24]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>&#39;I have the amazing opportunity to collaborate with over 500 students in our STEM (Science, Technology, Engineering, Math) Inquiry-Based Learning Lab&#39;
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">sents</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[25]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>&#39;  \\r\\n\\r\\nWe would like to utilize engineering, robotics, and programming to develop solutions to real-world STEM problems&#39;
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">sent</span> <span class="o">=</span> <span class="n">sents</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">r</span><span class="se">\\</span><span class="s1">n&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">bobot</span> <span class="o">=</span> <span class="n">sents</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;robotics&#39;</span><span class="p">,</span> <span class="s1">&#39;bobot&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">bobot</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[27]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>&#39;  \\r\\n\\r\\nWe would like to utilize engineering, bobot, and programming to develop solutions to real-world STEM problems&#39;
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">sent</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[29]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>&#39;  We would like to utilize engineering, robotics, and programming to develop solutions to real-world STEM problems&#39;
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">sent</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">word</span><span class="o">.</span><span class="n">pos_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+   SPACE
+We PRON
+would VERB
+like VERB
+to PART
+utilize VERB
+engineering NOUN
+, PUNCT
+robotics NOUN
+, PUNCT
+and CCONJ
+programming NOUN
+to PART
+develop VERB
+solutions NOUN
+to ADP
+real ADJ
+- PUNCT
+world NOUN
+STEM NOUN
+problems NOUN
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">ents</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ent</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">start_char</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">end_char</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">label_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+STEM 101 105 ORG
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">spacy.lang.en.stop_words</span> <span class="k">import</span> <span class="n">STOP_WORDS</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">sentence</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">text</span> <span class="o">!=</span> <span class="s1">&#39;n&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">w</span><span class="o">.</span><span class="n">is_stop</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">w</span><span class="o">.</span><span class="n">is_punct</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">w</span><span class="o">.</span><span class="n">like_num</span><span class="p">:</span>
+        <span class="n">sentence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">lemma_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">sentence</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[35]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>[&#39;  &#39;,
+ &#39;-PRON-&#39;,
+ &#39;like&#39;,
+ &#39;utilize&#39;,
+ &#39;engineering&#39;,
+ &#39;robotic&#39;,
+ &#39;programming&#39;,
+ &#39;develop&#39;,
+ &#39;solution&#39;,
+ &#39;real&#39;,
+ &#39;world&#39;,
+ &#39;stem&#39;,
+ &#39;problem&#39;]
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">noun_chunks</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">noun_chunks</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">noun_chunks</span><span class="p">)</span>
+
+<span class="n">sentences</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">sents</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[  We, engineering, robotics, programming, solutions, real-world STEM problems]
+</pre></div></div>
+</div>
+<div class="section" id="Essay-Exercise">
+<h3>Essay Exercise<a class="headerlink" href="#Essay-Exercise" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Can you locate a few essays that are talking about helping students
+improve their mathematics?</li>
+<li>Tell me something about the kinds of needs a few teachers in
+different areas describe in the <code class="docutils literal"><span class="pre">project_resource_summary</span></code> column.
+Create visualization of dependency tree for two different teachers.</li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">essays</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">project_essay_2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Test</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, J.F. Koehler.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/02-Intro-Spacy.ipynb"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
