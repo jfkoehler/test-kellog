@@ -9,7 +9,8 @@ Welcome to j's documentation!
 .. toctree::
    :maxdepth: 3
    :caption: Contents:
-    02-Intro-Spacy
+ 
+   02-Intro-Spacy.ipynb
 
 
 
