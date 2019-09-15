@@ -41,6 +41,7 @@ html_sourcelink_suffix = ''
 extensions = [
     'nbsphinx', 
     'sphinx.ext.mathjax', 
+    'sphinx_rtd_theme',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -56,9 +57,9 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'Test'
-copyright = '2018, J.F. Koehler'
-author = 'J.F. Koehler'
+project = 'Kellogg  AI'
+copyright = '2019, J.F. Koehler'
+author = 'Jacob Frias Koehler, PhD'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -93,7 +94,7 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -125,7 +126,7 @@ html_sidebars = {
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'CalculusNotesSpring2018doc'
+htmlhelp_basename = 'Kellog AI: Technical Documentation'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -152,7 +153,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'CalculusNotesSpring2018.tex', 'Calculus Notes: Spring 2018 Documentation',
+    (master_doc, 'kellog.tex', 'Kellog AI: Technical Documentation',
      'J.F. Koehler', 'manual'),
 ]
 
@@ -162,7 +163,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'calculusnotesspring2018', 'Calculus Notes: Spring 2018 Documentation',
+    (master_doc, 'kellogAI', 'Kellog AI: Technical Documentation',
      [author], 1)
 ]
 
@@ -173,8 +174,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'CalculusNotesSpring2018', 'Calculus Notes: Spring 2018 Documentation',
-     author, 'CalculusNotesSpring2018', 'One line description of project.',
+    (master_doc, 'Kellog AI', 'Kellog AI: Technical Documentation',
+     author, 'Kellog AI', 'One line description of project.',
      'Miscellaneous'),
 ]
 

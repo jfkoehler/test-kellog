@@ -1,0 +1,1177 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Save and Restore Models in Tensorflow &#8212; Test 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Keras Library Overview" href="07-keras-overview.html" />
+    <link rel="prev" title="Regression with Tensorflow" href="04-basic_regression.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Save-and-Restore-Models-in-Tensorflow">
+<h1>Save and Restore Models in Tensorflow<a class="headerlink" href="#Save-and-Restore-Models-in-Tensorflow" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Copyright-2018-The-TensorFlow-Authors.">
+<h2>Copyright 2018 The TensorFlow Authors.<a class="headerlink" href="#Copyright-2018-The-TensorFlow-Authors." title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#@title Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1"># https://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#@title MIT License</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2017 François Chollet</span>
+<span class="c1">#</span>
+<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a</span>
+<span class="c1"># copy of this software and associated documentation files (the &quot;Software&quot;),</span>
+<span class="c1"># to deal in the Software without restriction, including without limitation</span>
+<span class="c1"># the rights to use, copy, modify, merge, publish, distribute, sublicense,</span>
+<span class="c1"># and/or sell copies of the Software, and to permit persons to whom the</span>
+<span class="c1"># Software is furnished to do so, subject to the following conditions:</span>
+<span class="c1">#</span>
+<span class="c1"># The above copyright notice and this permission notice shall be included in</span>
+<span class="c1"># all copies or substantial portions of the Software.</span>
+<span class="c1">#</span>
+<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL</span>
+<span class="c1"># THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
+<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING</span>
+<span class="c1"># FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER</span>
+<span class="c1"># DEALINGS IN THE SOFTWARE.</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Save-and-restore-models">
+<h1>Save and restore models<a class="headerlink" href="#Save-and-restore-models" title="Permalink to this headline">¶</a></h1>
+<table class="tfo-notebook-buttons" align="left"><td><p>View on TensorFlow.org</p>
+</td><td><p>Run in Google Colab</p>
+</td><td><p>View source on GitHub</p>
+</td></table><p>Model progress can be saved during—and after—training. This means a model can resume where it left off and avoid long training times. Saving also means you can share your model and others can recreate your work. When publishing research models and techniques, most machine learning practitioners share:</p>
+<ul class="simple">
+<li><p>code to create the model, and</p></li>
+<li><p>the trained weights, or parameters, for the model</p></li>
+</ul>
+<p>Sharing this data helps others understand how the model works and try it themselves with new data.</p>
+<p>Caution: Be careful with untrusted code—TensorFlow models are code. See <a class="reference external" href="https://github.com/tensorflow/tensorflow/blob/master/SECURITY.md">Using TensorFlow Securely</a> for details.</p>
+<p>There are different ways to save TensorFlow models—depending on the API you’re using. This guide uses <a class="reference external" href="https://www.tensorflow.org/guide/keras">tf.keras</a>, a high-level API to build and train models in TensorFlow. For other approaches, see the TensorFlow <a class="reference external" href="https://www.tensorflow.org/guide/saved_model">Save and Restore</a> guide or <a class="reference external" href="https://www.tensorflow.org/guide/eager#object-based_saving">Saving in eager</a>.</p>
+<p>Install and import TensorFlow and dependencies:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span>pip install h5py pyyaml
+<span class="o">!</span>pip install tf_nightly
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Requirement already satisfied: h5py in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (2.9.0)
+Requirement already satisfied: pyyaml in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (5.1.2)
+Requirement already satisfied: numpy&gt;=1.7 in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from h5py) (1.16.3)
+Requirement already satisfied: six in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from h5py) (1.12.0)
+Requirement already satisfied: tf_nightly in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (1.15.0.dev20190821)
+Requirement already satisfied: grpcio&gt;=1.8.6 in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from tf_nightly) (1.23.0)
+Requirement already satisfied: gast&gt;=0.2.0 in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from tf_nightly) (0.2.2)
+Requirement already satisfied: opt-einsum&gt;=2.3.2 in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from tf_nightly) (3.0.1)
+Requirement already satisfied: tb-nightly&lt;1.16.0a0,&gt;=1.15.0a0 in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from tf_nightly) (1.15.0a20190830)
+Requirement already satisfied: numpy&lt;2.0,&gt;=1.16.0 in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from tf_nightly) (1.16.3)
+Requirement already satisfied: wrapt&gt;=1.11.1 in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from tf_nightly) (1.11.2)
+Requirement already satisfied: termcolor&gt;=1.1.0 in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from tf_nightly) (1.1.0)
+Requirement already satisfied: tf-estimator-nightly in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from tf_nightly) (1.14.0.dev2019083001)
+Requirement already satisfied: keras-preprocessing&gt;=1.0.5 in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from tf_nightly) (1.1.0)
+Requirement already satisfied: six&gt;=1.10.0 in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from tf_nightly) (1.12.0)
+Requirement already satisfied: astor&gt;=0.6.0 in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from tf_nightly) (0.8.0)
+Requirement already satisfied: google-pasta&gt;=0.1.6 in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from tf_nightly) (0.1.7)
+Requirement already satisfied: keras-applications&gt;=1.0.8 in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from tf_nightly) (1.0.8)
+Requirement already satisfied: wheel&gt;=0.26 in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from tf_nightly) (0.33.1)
+Requirement already satisfied: protobuf&gt;=3.6.1 in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from tf_nightly) (3.9.1)
+Requirement already satisfied: absl-py&gt;=0.7.0 in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from tf_nightly) (0.8.0)
+Requirement already satisfied: werkzeug&gt;=0.11.15 in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from tb-nightly&lt;1.16.0a0,&gt;=1.15.0a0-&gt;tf_nightly) (0.15.5)
+Requirement already satisfied: markdown&gt;=2.6.8 in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from tb-nightly&lt;1.16.0a0,&gt;=1.15.0a0-&gt;tf_nightly) (3.1.1)
+Requirement already satisfied: setuptools&gt;=41.0.0 in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from tb-nightly&lt;1.16.0a0,&gt;=1.15.0a0-&gt;tf_nightly) (41.0.0)
+Requirement already satisfied: h5py in /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages (from keras-applications&gt;=1.0.8-&gt;tf_nightly) (2.9.0)
+</pre></div></div>
+</div>
+<p>We’ll use the <a class="reference external" href="http://yann.lecun.com/exdb/mnist/">MNIST dataset</a> to train our model to demonstrate saving weights. To speed up these demonstration runs, only use the first 1000 examples:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">tensorflow</span> <span class="k">import</span> <span class="n">keras</span>
+
+<span class="n">tf</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING:tensorflow:
+
+  TensorFlow&#39;s `tf-nightly` package will soon be updated to TensorFlow 2.0.
+
+  Please upgrade your code to TensorFlow 2.0:
+    * https://www.tensorflow.org/beta/guide/migration_guide
+
+  Or install the latest stable TensorFlow 1.X release:
+    * `pip install -U &#34;tensorflow==1.*&#34;`
+
+  Otherwise your code may be broken by the change.
+
+
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&#39;1.15.0-dev20190821&#39;
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+
+<span class="n">train_labels</span> <span class="o">=</span> <span class="n">train_labels</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span>
+<span class="n">test_labels</span> <span class="o">=</span> <span class="n">test_labels</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span>
+
+<span class="n">train_images</span> <span class="o">=</span> <span class="n">train_images</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span> <span class="o">*</span> <span class="mi">28</span><span class="p">)</span> <span class="o">/</span> <span class="mf">255.0</span>
+<span class="n">test_images</span> <span class="o">=</span> <span class="n">test_images</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span> <span class="o">*</span> <span class="mi">28</span><span class="p">)</span> <span class="o">/</span> <span class="mf">255.0</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s build a simple model we’ll use to demonstrate saving and loading weights.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Returns a short sequential model</span>
+<span class="k">def</span> <span class="nf">create_model</span><span class="p">():</span>
+  <span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">activations</span><span class="o">.</span><span class="n">relu</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">784</span><span class="p">,)),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">activations</span><span class="o">.</span><span class="n">softmax</span><span class="p">)</span>
+  <span class="p">])</span>
+
+  <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(),</span>
+                <span class="n">loss</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">sparse_categorical_crossentropy</span><span class="p">,</span>
+                <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+
+  <span class="k">return</span> <span class="n">model</span>
+
+
+<span class="c1"># Create a basic model instance</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING:tensorflow:From /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages/tensorflow_core/python/ops/resource_variable_ops.py:1630: calling BaseResourceVariable.__init__ (from tensorflow.python.ops.resource_variable_ops) with constraint is deprecated and will be removed in a future version.
+Instructions for updating:
+If using Keras pass *_constraint arguments to layers.
+Model: &#34;sequential&#34;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+dense (Dense)                (None, 512)               401920
+_________________________________________________________________
+dropout (Dropout)            (None, 512)               0
+_________________________________________________________________
+dense_1 (Dense)              (None, 10)                5130
+=================================================================
+Total params: 407,050
+Trainable params: 407,050
+Non-trainable params: 0
+_________________________________________________________________
+</pre></div></div>
+</div>
+<p>The primary use case is to automatically save checkpoints <em>during</em> and at <em>the end</em> of training. This way you can use a trained model without having to retrain it, or pick-up training where you left of—in case the training process was interrupted.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tf.keras.callbacks.ModelCheckpoint</span></code> is a callback that performs this task. The callback takes a couple of arguments to configure checkpointing.</p>
+<p>Train the model and pass it the <code class="docutils literal notranslate"><span class="pre">ModelCheckpoint</span></code> callback:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">checkpoint_path</span> <span class="o">=</span> <span class="s2">&quot;training_1/cp.ckpt&quot;</span>
+<span class="n">checkpoint_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">)</span>
+
+<span class="c1"># Create checkpoint callback</span>
+<span class="n">cp_callback</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">,</span>
+                                                 <span class="n">save_weights_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                 <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">()</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span>  <span class="n">epochs</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+          <span class="n">validation_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">test_images</span><span class="p">,</span><span class="n">test_labels</span><span class="p">),</span>
+          <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span><span class="n">cp_callback</span><span class="p">])</span>  <span class="c1"># pass callback to training</span>
+
+<span class="c1"># This may generate warnings related to saving the state of the optimizer.</span>
+<span class="c1"># These warnings (and similar warnings throughout this notebook)</span>
+<span class="c1"># are in place to discourage outdated usage, and can be ignored.</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Train on 1000 samples, validate on 1000 samples
+Epoch 1/10
+ 800/1000 [=======================&gt;......] - ETA: 0s - loss: 1.3408 - acc: 0.6050
+Epoch 00001: saving model to training_1/cp.ckpt
+1000/1000 [==============================] - 0s 487us/sample - loss: 1.2080 - acc: 0.6490 - val_loss: 0.7378 - val_acc: 0.7880
+Epoch 2/10
+ 768/1000 [======================&gt;.......] - ETA: 0s - loss: 0.4329 - acc: 0.8841
+Epoch 00002: saving model to training_1/cp.ckpt
+1000/1000 [==============================] - 0s 250us/sample - loss: 0.4345 - acc: 0.8840 - val_loss: 0.5337 - val_acc: 0.8380
+Epoch 3/10
+ 768/1000 [======================&gt;.......] - ETA: 0s - loss: 0.2972 - acc: 0.9310
+Epoch 00003: saving model to training_1/cp.ckpt
+1000/1000 [==============================] - 0s 252us/sample - loss: 0.2885 - acc: 0.9320 - val_loss: 0.5172 - val_acc: 0.8370
+Epoch 4/10
+ 768/1000 [======================&gt;.......] - ETA: 0s - loss: 0.2188 - acc: 0.9453
+Epoch 00004: saving model to training_1/cp.ckpt
+1000/1000 [==============================] - 0s 255us/sample - loss: 0.2173 - acc: 0.9440 - val_loss: 0.4545 - val_acc: 0.8570
+Epoch 5/10
+ 800/1000 [=======================&gt;......] - ETA: 0s - loss: 0.1406 - acc: 0.9775
+Epoch 00005: saving model to training_1/cp.ckpt
+1000/1000 [==============================] - 0s 254us/sample - loss: 0.1478 - acc: 0.9750 - val_loss: 0.4379 - val_acc: 0.8640
+Epoch 6/10
+ 768/1000 [======================&gt;.......] - ETA: 0s - loss: 0.1149 - acc: 0.9766
+Epoch 00006: saving model to training_1/cp.ckpt
+1000/1000 [==============================] - 0s 250us/sample - loss: 0.1174 - acc: 0.9760 - val_loss: 0.4259 - val_acc: 0.8650
+Epoch 7/10
+ 800/1000 [=======================&gt;......] - ETA: 0s - loss: 0.0920 - acc: 0.9900
+Epoch 00007: saving model to training_1/cp.ckpt
+1000/1000 [==============================] - 0s 250us/sample - loss: 0.0912 - acc: 0.9880 - val_loss: 0.4458 - val_acc: 0.8570
+Epoch 8/10
+ 768/1000 [======================&gt;.......] - ETA: 0s - loss: 0.0715 - acc: 0.9909
+Epoch 00008: saving model to training_1/cp.ckpt
+1000/1000 [==============================] - 0s 250us/sample - loss: 0.0701 - acc: 0.9910 - val_loss: 0.4137 - val_acc: 0.8670
+Epoch 9/10
+ 800/1000 [=======================&gt;......] - ETA: 0s - loss: 0.0474 - acc: 0.9950
+Epoch 00009: saving model to training_1/cp.ckpt
+1000/1000 [==============================] - 0s 250us/sample - loss: 0.0491 - acc: 0.9950 - val_loss: 0.4473 - val_acc: 0.8550
+Epoch 10/10
+ 768/1000 [======================&gt;.......] - ETA: 0s - loss: 0.0392 - acc: 0.9961
+Epoch 00010: saving model to training_1/cp.ckpt
+1000/1000 [==============================] - 0s 251us/sample - loss: 0.0389 - acc: 0.9970 - val_loss: 0.4294 - val_acc: 0.8690
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;tensorflow.python.keras.callbacks.History at 0x137f08a90&gt;
+</pre></div>
+</div>
+</div>
+<p>This creates a single collection of TensorFlow checkpoint files that are updated at the end of each epoch:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span>ls <span class="o">{</span>checkpoint_dir<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+checkpoint                  cp.ckpt.data-00001-of-00002
+cp.ckpt.data-00000-of-00002 cp.ckpt.index
+</pre></div></div>
+</div>
+<p>Create a new, untrained model. When restoring a model from only weights, you must have a model with the same architecture as the original model. Since it’s the same model architecture, we can share weights despite that it’s a different <em>instance</em> of the model.</p>
+<p>Now rebuild a fresh, untrained model, and evaluate it on the test set. An untrained model will perform at chance levels (~10% accuracy):</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">()</span>
+
+<span class="n">loss</span><span class="p">,</span> <span class="n">acc</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Untrained model, accuracy: </span><span class="si">{:5.2f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">acc</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1000/1000 [==============================] - 0s 118us/sample - loss: 2.4120 - acc: 0.1060
+Untrained model, accuracy: 10.60%
+</pre></div></div>
+</div>
+<p>Then load the weights from the checkpoint, and re-evaluate:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span><span class="o">.</span><span class="n">load_weights</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">)</span>
+<span class="n">loss</span><span class="p">,</span><span class="n">acc</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Restored model, accuracy: </span><span class="si">{:5.2f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">acc</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1000/1000 [==============================] - 0s 62us/sample - loss: 0.4294 - acc: 0.8690
+Restored model, accuracy: 86.90%
+</pre></div></div>
+</div>
+<p>The callback provides several options to give the resulting checkpoints unique names, and adjust the checkpointing frequency.</p>
+<p>Train a new model, and save uniquely named checkpoints once every 5-epochs:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># include the epoch in the file name. (uses `str.format`)</span>
+<span class="n">checkpoint_path</span> <span class="o">=</span> <span class="s2">&quot;training_2/cp-</span><span class="si">{epoch:04d}</span><span class="s2">.ckpt&quot;</span>
+<span class="n">checkpoint_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">)</span>
+
+<span class="n">cp_callback</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span>
+    <span class="n">checkpoint_path</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">save_weights_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="c1"># Save weights, every 5-epochs.</span>
+    <span class="n">period</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">save_weights</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span>
+          <span class="n">epochs</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span><span class="n">cp_callback</span><span class="p">],</span>
+          <span class="n">validation_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">test_images</span><span class="p">,</span><span class="n">test_labels</span><span class="p">),</span>
+          <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING:tensorflow:`period` argument is deprecated. Please use `save_freq` to specify the frequency in number of samples seen.
+
+Epoch 00005: saving model to training_2/cp-0005.ckpt
+
+Epoch 00010: saving model to training_2/cp-0010.ckpt
+
+Epoch 00015: saving model to training_2/cp-0015.ckpt
+
+Epoch 00020: saving model to training_2/cp-0020.ckpt
+
+Epoch 00025: saving model to training_2/cp-0025.ckpt
+
+Epoch 00030: saving model to training_2/cp-0030.ckpt
+
+Epoch 00035: saving model to training_2/cp-0035.ckpt
+
+Epoch 00040: saving model to training_2/cp-0040.ckpt
+
+Epoch 00045: saving model to training_2/cp-0045.ckpt
+
+Epoch 00050: saving model to training_2/cp-0050.ckpt
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;tensorflow.python.keras.callbacks.History at 0x135078fd0&gt;
+</pre></div>
+</div>
+</div>
+<p>Now, look at the resulting checkpoints and choose the latest one:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span> ls <span class="o">{</span>checkpoint_dir<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+checkpoint                       cp-0025.ckpt.data-00001-of-00002
+cp-0000.ckpt.data-00000-of-00002 cp-0025.ckpt.index
+cp-0000.ckpt.data-00001-of-00002 cp-0030.ckpt.data-00000-of-00002
+cp-0000.ckpt.index               cp-0030.ckpt.data-00001-of-00002
+cp-0005.ckpt.data-00000-of-00002 cp-0030.ckpt.index
+cp-0005.ckpt.data-00001-of-00002 cp-0035.ckpt.data-00000-of-00002
+cp-0005.ckpt.index               cp-0035.ckpt.data-00001-of-00002
+cp-0010.ckpt.data-00000-of-00002 cp-0035.ckpt.index
+cp-0010.ckpt.data-00001-of-00002 cp-0040.ckpt.data-00000-of-00002
+cp-0010.ckpt.index               cp-0040.ckpt.data-00001-of-00002
+cp-0015.ckpt.data-00000-of-00002 cp-0040.ckpt.index
+cp-0015.ckpt.data-00001-of-00002 cp-0045.ckpt.data-00000-of-00002
+cp-0015.ckpt.index               cp-0045.ckpt.data-00001-of-00002
+cp-0020.ckpt.data-00000-of-00002 cp-0045.ckpt.index
+cp-0020.ckpt.data-00001-of-00002 cp-0050.ckpt.data-00000-of-00002
+cp-0020.ckpt.index               cp-0050.ckpt.data-00001-of-00002
+cp-0025.ckpt.data-00000-of-00002 cp-0050.ckpt.index
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">latest</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">latest_checkpoint</span><span class="p">(</span><span class="n">checkpoint_dir</span><span class="p">)</span>
+<span class="n">latest</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&#39;training_2/cp-0050.ckpt&#39;
+</pre></div>
+</div>
+</div>
+<p>Note: the default tensorflow format only saves the 5 most recent checkpoints.</p>
+<p>To test, reset the model and load the latest checkpoint:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">load_weights</span><span class="p">(</span><span class="n">latest</span><span class="p">)</span>
+<span class="n">loss</span><span class="p">,</span> <span class="n">acc</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Restored model, accuracy: </span><span class="si">{:5.2f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">acc</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1000/1000 [==============================] - 0s 141us/sample - loss: 0.4871 - acc: 0.8800
+Restored model, accuracy: 88.00%
+</pre></div></div>
+</div>
+<p>The above code stores the weights to a collection of <a class="reference external" href="https://www.tensorflow.org/guide/saved_model#save_and_restore_variables">checkpoint</a>-formatted files that contain only the trained weights in a binary format. Checkpoints contain: * One or more shards that contain your model’s weights. * An index file that indicates which weights are stored in a which shard.</p>
+<p>If you are only training a model on a single machine, you’ll have one shard with the suffix: <code class="docutils literal notranslate"><span class="pre">.data-00000-of-00001</span></code></p>
+<p>Above you saw how to load the weights into a model.</p>
+<p>Manually saving the weights is just as simple, use the <code class="docutils literal notranslate"><span class="pre">Model.save_weights</span></code> method.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Save the weights</span>
+<span class="n">model</span><span class="o">.</span><span class="n">save_weights</span><span class="p">(</span><span class="s1">&#39;./checkpoints/my_checkpoint&#39;</span><span class="p">)</span>
+
+<span class="c1"># Restore the weights</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">load_weights</span><span class="p">(</span><span class="s1">&#39;./checkpoints/my_checkpoint&#39;</span><span class="p">)</span>
+
+<span class="n">loss</span><span class="p">,</span><span class="n">acc</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Restored model, accuracy: </span><span class="si">{:5.2f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">acc</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1000/1000 [==============================] - 0s 135us/sample - loss: 0.4871 - acc: 0.8800
+Restored model, accuracy: 88.00%
+</pre></div></div>
+</div>
+<p>The entire model can be saved to a file that contains the weight values, the model’s configuration, and even the optimizer’s configuration (depends on set up). This allows you to checkpoint a model and resume training later—from the exact same state—without access to the original code.</p>
+<p>Saving a fully-functional model is very useful—you can load them in TensorFlow.js (<a class="reference external" href="https://js.tensorflow.org/tutorials/import-keras.html">HDF5</a>, <a class="reference external" href="https://js.tensorflow.org/tutorials/import-saved-model.html">Saved Model</a>) and then train and run them in web browsers, or convert them to run on mobile devices using TensorFlow Lite (<a class="reference external" href="https://www.tensorflow.org/lite/convert/python_api#exporting_a_tfkeras_file_">HDF5</a>, <a class="reference external" href="https://www.tensorflow.org/lite/convert/python_api#exporting_a_savedmodel_">Saved
+Model</a>)</p>
+<p>Keras provides a basic save format using the <a class="reference external" href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format">HDF5</a> standard. For our purposes, the saved model can be treated as a single binary blob.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">()</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Save entire model to a HDF5 file</span>
+<span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;my_model.h5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Train on 1000 samples
+Epoch 1/5
+1000/1000 [==============================] - 0s 304us/sample - loss: 1.1348 - acc: 0.6730
+Epoch 2/5
+1000/1000 [==============================] - 0s 150us/sample - loss: 0.4127 - acc: 0.8940
+Epoch 3/5
+1000/1000 [==============================] - 0s 145us/sample - loss: 0.2928 - acc: 0.9180
+Epoch 4/5
+1000/1000 [==============================] - 0s 144us/sample - loss: 0.1946 - acc: 0.9550
+Epoch 5/5
+1000/1000 [==============================] - 0s 146us/sample - loss: 0.1627 - acc: 0.9620
+</pre></div></div>
+</div>
+<p>Now recreate the model from that file:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Recreate the exact same model, including weights and optimizer.</span>
+<span class="n">new_model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s1">&#39;my_model.h5&#39;</span><span class="p">)</span>
+<span class="n">new_model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING:tensorflow:From /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages/tensorflow_core/python/ops/init_ops.py:97: calling GlorotUniform.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+Instructions for updating:
+Call initializer instance with the dtype argument instead of passing it to the constructor
+WARNING:tensorflow:From /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages/tensorflow_core/python/ops/init_ops.py:97: calling Zeros.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+Instructions for updating:
+Call initializer instance with the dtype argument instead of passing it to the constructor
+Model: &#34;sequential_6&#34;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+dense_12 (Dense)             (None, 512)               401920
+_________________________________________________________________
+dropout_6 (Dropout)          (None, 512)               0
+_________________________________________________________________
+dense_13 (Dense)             (None, 10)                5130
+=================================================================
+Total params: 407,050
+Trainable params: 407,050
+Non-trainable params: 0
+_________________________________________________________________
+</pre></div></div>
+</div>
+<p>Check its accuracy:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">loss</span><span class="p">,</span> <span class="n">acc</span> <span class="o">=</span> <span class="n">new_model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Restored model, accuracy: </span><span class="si">{:5.2f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">acc</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1000/1000 [==============================] - 0s 161us/sample - loss: 0.4345 - acc: 0.8560
+Restored model, accuracy: 85.60%
+</pre></div></div>
+</div>
+<p>This technique saves everything:</p>
+<ul class="simple">
+<li><p>The weight values</p></li>
+<li><p>The model’s configuration(architecture)</p></li>
+<li><p>The optimizer configuration</p></li>
+</ul>
+<p>Keras saves models by inspecting the architecture. Currently, it is not able to save TensorFlow optimizers (from <code class="docutils literal notranslate"><span class="pre">tf.train</span></code>). When using those you will need to re-compile the model after loading, and you will lose the state of the optimizer.</p>
+<p>Caution: This method of saving a <code class="docutils literal notranslate"><span class="pre">tf.keras</span></code> model is experimental and may change in future versions.</p>
+<p>Build a fresh model:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">()</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Train on 1000 samples
+Epoch 1/5
+1000/1000 [==============================] - 0s 316us/sample - loss: 1.1560 - acc: 0.6800
+Epoch 2/5
+1000/1000 [==============================] - 0s 166us/sample - loss: 0.4286 - acc: 0.8710
+Epoch 3/5
+1000/1000 [==============================] - 0s 159us/sample - loss: 0.2880 - acc: 0.9270
+Epoch 4/5
+1000/1000 [==============================] - 0s 152us/sample - loss: 0.2081 - acc: 0.9470
+Epoch 5/5
+1000/1000 [==============================] - 0s 149us/sample - loss: 0.1544 - acc: 0.9650
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;tensorflow.python.keras.callbacks.History at 0x1365f5d68&gt;
+</pre></div>
+</div>
+</div>
+<p>Create a <code class="docutils literal notranslate"><span class="pre">saved_model</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">saved_model_path</span> <span class="o">=</span> <span class="s2">&quot;./saved_models/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()))</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">saved_model</span><span class="o">.</span><span class="n">save_keras_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">saved_model_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING:tensorflow:
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.iter
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.beta_1
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.beta_2
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.decay
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.learning_rate
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer&#39;s state &#39;m&#39; for (root).layer_with_weights-0.kernel
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer&#39;s state &#39;m&#39; for (root).layer_with_weights-0.bias
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer&#39;s state &#39;m&#39; for (root).layer_with_weights-1.kernel
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer&#39;s state &#39;m&#39; for (root).layer_with_weights-1.bias
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer&#39;s state &#39;v&#39; for (root).layer_with_weights-0.kernel
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer&#39;s state &#39;v&#39; for (root).layer_with_weights-0.bias
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer&#39;s state &#39;v&#39; for (root).layer_with_weights-1.kernel
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer&#39;s state &#39;v&#39; for (root).layer_with_weights-1.bias
+WARNING:tensorflow:A checkpoint was restored (e.g. tf.train.Checkpoint.restore or tf.keras.Model.load_weights) but not all checkpointed values were used. See above for specific issues. Use expect_partial() on the load status object, e.g. tf.train.Checkpoint.restore(...).expect_partial(), to silence these warnings, or use assert_consumed() to make the check explicit. See https://www.tensorflow.org/alpha/guide/checkpoints#loading_mechanics for details.
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.iter
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.beta_1
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.beta_2
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.decay
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer.learning_rate
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer&#39;s state &#39;m&#39; for (root).layer_with_weights-0.kernel
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer&#39;s state &#39;m&#39; for (root).layer_with_weights-0.bias
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer&#39;s state &#39;m&#39; for (root).layer_with_weights-1.kernel
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer&#39;s state &#39;m&#39; for (root).layer_with_weights-1.bias
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer&#39;s state &#39;v&#39; for (root).layer_with_weights-0.kernel
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer&#39;s state &#39;v&#39; for (root).layer_with_weights-0.bias
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer&#39;s state &#39;v&#39; for (root).layer_with_weights-1.kernel
+WARNING:tensorflow:Unresolved object in checkpoint: (root).optimizer&#39;s state &#39;v&#39; for (root).layer_with_weights-1.bias
+WARNING:tensorflow:A checkpoint was restored (e.g. tf.train.Checkpoint.restore or tf.keras.Model.load_weights) but not all checkpointed values were used. See above for specific issues. Use expect_partial() on the load status object, e.g. tf.train.Checkpoint.restore(...).expect_partial(), to silence these warnings, or use assert_consumed() to make the check explicit. See https://www.tensorflow.org/alpha/guide/checkpoints#loading_mechanics for details.
+WARNING:tensorflow:From &lt;ipython-input-20-998dfe524d77&gt;:4: export_saved_model (from tensorflow.python.keras.saving.saved_model_experimental) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `model.save(..., save_format=&#34;tf&#34;)` or `tf.keras.models.save_model(..., save_format=&#34;tf&#34;)`.
+WARNING:tensorflow:From /Users/koehlejf/.julia/conda/3/lib/python3.7/site-packages/tensorflow_core/python/saved_model/signature_def_utils_impl.py:253: build_tensor_info (from tensorflow.python.saved_model.utils_impl) is deprecated and will be removed in a future version.
+Instructions for updating:
+This function will only be available through the v1 compatibility library as tf.compat.v1.saved_model.utils.build_tensor_info or tf.compat.v1.saved_model.build_tensor_info.
+INFO:tensorflow:Signatures INCLUDED in export for Classify: None
+INFO:tensorflow:Signatures INCLUDED in export for Regress: None
+INFO:tensorflow:Signatures INCLUDED in export for Predict: None
+INFO:tensorflow:Signatures INCLUDED in export for Train: [&#39;train&#39;]
+INFO:tensorflow:Signatures INCLUDED in export for Eval: None
+WARNING:tensorflow:Export includes no default signature!
+INFO:tensorflow:No assets to save.
+INFO:tensorflow:No assets to write.
+INFO:tensorflow:Signatures INCLUDED in export for Classify: None
+INFO:tensorflow:Signatures INCLUDED in export for Regress: None
+INFO:tensorflow:Signatures INCLUDED in export for Predict: None
+INFO:tensorflow:Signatures INCLUDED in export for Train: None
+INFO:tensorflow:Signatures INCLUDED in export for Eval: [&#39;eval&#39;]
+WARNING:tensorflow:Export includes no default signature!
+INFO:tensorflow:No assets to save.
+INFO:tensorflow:No assets to write.
+INFO:tensorflow:Signatures INCLUDED in export for Classify: None
+INFO:tensorflow:Signatures INCLUDED in export for Regress: None
+INFO:tensorflow:Signatures INCLUDED in export for Predict: [&#39;serving_default&#39;]
+INFO:tensorflow:Signatures INCLUDED in export for Train: None
+INFO:tensorflow:Signatures INCLUDED in export for Eval: None
+INFO:tensorflow:No assets to save.
+INFO:tensorflow:No assets to write.
+INFO:tensorflow:SavedModel written to: ./saved_models/1567168651/saved_model.pb
+</pre></div></div>
+</div>
+<p>Have a look in the directory:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span>ls <span class="o">{</span>saved_model_path<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-blue-fg">assets</span>         saved_model.pb <span class="ansi-blue-fg">variables</span>
+</pre></div></div>
+</div>
+<p>Reload a fresh keras model from the saved model.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">new_model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">saved_model</span><span class="o">.</span><span class="n">load_keras_model</span><span class="p">(</span><span class="n">saved_model_path</span><span class="p">)</span>
+<span class="n">new_model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING:tensorflow:From &lt;ipython-input-22-f5ba023fc0b4&gt;:1: load_from_saved_model (from tensorflow.python.keras.saving.saved_model_experimental) is deprecated and will be removed in a future version.
+Instructions for updating:
+The experimental save and load functions have been  deprecated. Please switch to `tf.keras.models.load_model`.
+Model: &#34;sequential_7&#34;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+dense_14 (Dense)             (None, 512)               401920
+_________________________________________________________________
+dropout_7 (Dropout)          (None, 512)               0
+_________________________________________________________________
+dense_15 (Dense)             (None, 10)                5130
+=================================================================
+Total params: 407,050
+Trainable params: 407,050
+Non-trainable params: 0
+_________________________________________________________________
+</pre></div></div>
+</div>
+<p>Run the restored model.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># The model has to be compiled before evaluating.</span>
+<span class="c1"># This step is not required if the saved model is only being deployed.</span>
+
+<span class="n">new_model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(),</span>
+              <span class="n">loss</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">sparse_categorical_crossentropy</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+
+<span class="c1"># Evaluate the restored model.</span>
+<span class="n">loss</span><span class="p">,</span> <span class="n">acc</span> <span class="o">=</span> <span class="n">new_model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Restored model, accuracy: </span><span class="si">{:5.2f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">acc</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1000/1000 [==============================] - 0s 178us/sample - loss: 0.4337 - acc: 0.8580
+Restored model, accuracy: 85.80%
+</pre></div></div>
+</div>
+<p>That was a quick guide to saving and loading in with <code class="docutils literal notranslate"><span class="pre">tf.keras</span></code>.</p>
+<ul class="simple">
+<li><p>The <a class="reference external" href="https://www.tensorflow.org/guide/keras">tf.keras guide</a> shows more about saving and loading models with <code class="docutils literal notranslate"><span class="pre">tf.keras</span></code>.</p></li>
+<li><p>See <a class="reference external" href="https://www.tensorflow.org/guide/eager#object_based_saving">Saving in eager</a> for saving during eager execution.</p></li>
+<li><p>The <a class="reference external" href="https://www.tensorflow.org/guide/saved_model">Save and Restore</a> guide has low-level details about TensorFlow saving.</p></li>
+</ul>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Test</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../week_1/00-tools.html">Tools for AI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_1/01-readings.html">Readings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_4/01-KNIME.html">KNIME: Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_4/02-Intro-Workflow.html">Starting a Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_4/03-Churn-Example.html">Customer Churn with KNIME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_4/04-visualizations.html">Data Visualization with KNIME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-basic_classification.html">Basic Classification with Tensorflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-basic_classification.html#Train-your-first-neural-network:-basic-classification">Train your first neural network: basic classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-basic_text_classification.html">Text Classification with Tensorflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-basic_text_classification.html#Text-classification-with-movie-reviews">Text classification with movie reviews</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-basic_regression.html">Regression with Tensorflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-basic_regression.html#Regression:-predict-fuel-efficiency">Regression: predict fuel efficiency</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Save and Restore Models in Tensorflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Copyright-2018-The-TensorFlow-Authors.">Copyright 2018 The TensorFlow Authors.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#Save-and-restore-models">Save and restore models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-keras-overview.html">Keras Library Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-keras-overview.html#Keras">Keras</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="04-basic_regression.html" title="previous chapter">Regression with Tensorflow</a></li>
+      <li>Next: <a href="07-keras-overview.html" title="next chapter">Keras Library Overview</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, J.F. Koehler.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/week_5/06-save_and_restore_models.ipynb"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

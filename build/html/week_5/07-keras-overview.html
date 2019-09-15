@@ -1,0 +1,1812 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Keras Library Overview &mdash; Kellog  AI 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Intro to Cloud Services" href="../week_6/00-intro.html" />
+    <link rel="prev" title="Regression with Tensorflow" href="04-basic_regression.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Kellog  AI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction and Python</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_1/00-tools.html">Tools for AI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_1/01-readings.html">Readings</a></li>
+</ul>
+<p class="caption"><span class="caption-text">KNIME</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_4/01-KNIME.html">KNIME: Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_4/02-Intro-Workflow.html">Starting a Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_4/03-Churn-Example.html">Customer Churn with KNIME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_4/04-visualizations.html">Data Visualization with KNIME</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tensorflow</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="02-basic_classification.html">Basic Classification with Tensorflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-basic_text_classification.html">Text Classification with Tensorflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-basic_regression.html">Regression with Tensorflow</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Keras Library Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Keras">Keras</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Import-tf.keras">Import tf.keras</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Build-a-simple-model">Build a simple model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Sequential-model">Sequential model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Configure-the-layers">Configure the layers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Train-and-evaluate">Train and evaluate</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Set-up-training">Set up training</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Input-NumPy-data">Input NumPy data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Input-tf.data-datasets">Input tf.data datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Evaluate-and-predict">Evaluate and predict</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Build-advanced-models">Build advanced models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Functional-API">Functional API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Model-subclassing">Model subclassing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Custom-layers">Custom layers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Callbacks">Callbacks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Weights-only">Weights only</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Configuration-only">Configuration only</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Entire-model">Entire model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Eager-execution">Eager execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Distribution">Distribution</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Estimators">Estimators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Multiple-GPUs">Multiple GPUs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Cloud Services</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_6/00-intro.html">Intro to Cloud Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_6/02-Google-Cloud.html">Google Cloud Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_6/01-aws.html">AWS Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_6/03-Microsoft-Azure.html">Microsoft Azure</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Machine Learning Models</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_7/00-supervised.html">Supervised Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_7/01-unsupervised.html">Unsupervised Learning Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_7/02-regression.html">Regression Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_7/03-classification.html">Classification Models</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Kaggle and Data Science Contests</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_8/intro.html">Data Science Competitions: Kaggle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_8/titanic.html">Titanic Data Science Solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_8/ames.html">A Study on Regression applied to the Ames Dataset</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Kellog  AI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Keras Library Overview</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/week_5/07-keras-overview.ipynb" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Keras-Library-Overview">
+<h1>Keras Library Overview<a class="headerlink" href="#Keras-Library-Overview" title="Permalink to this headline">¶</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">##### Copyright 2018 The TensorFlow Authors.</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#@title Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1"># https://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Keras">
+<h2>Keras<a class="headerlink" href="#Keras" title="Permalink to this headline">¶</a></h2>
+<table class="tfo-notebook-buttons" align="left"><td><p>View on TensorFlow.org</p>
+</td><td><p>Run in Google Colab</p>
+</td><td><p>View source on GitHub</p>
+</td></table><p>Keras is a high-level API to build and train deep learning models. It’s used for fast prototyping, advanced research, and production, with three key advantages:</p>
+<ul class="simple">
+<li><p><em>User friendly</em> Keras has a simple, consistent interface optimized for common use cases. It provides clear and actionable feedback for user errors.</p></li>
+<li><p><em>Modular and composable</em> Keras models are made by connecting configurable building blocks together, with few restrictions.</p></li>
+<li><p><em>Easy to extend</em> Write custom building blocks to express new ideas for research. Create new layers, loss functions, and develop state-of-the-art models.</p></li>
+</ul>
+</div>
+<div class="section" id="Import-tf.keras">
+<h2>Import tf.keras<a class="headerlink" href="#Import-tf.keras" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">tf.keras</span></code> is TensorFlow’s implementation of the <a class="reference external" href="https://keras.io">Keras API specification</a>. This is a high-level API to build and train models that includes first-class support for TensorFlow-specific functionality, such as <a class="reference external" href="#eager_execution">eager execution</a>, <code class="docutils literal notranslate"><span class="pre">tf.data</span></code> pipelines, and <a class="reference external" href="./estimators.md">Estimators</a>. <code class="docutils literal notranslate"><span class="pre">tf.keras</span></code> makes TensorFlow easier to use without sacrificing flexibility and performance.</p>
+<p>To get started, import <code class="docutils literal notranslate"><span class="pre">tf.keras</span></code> as part of your TensorFlow program setup:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span>pip install pyyaml  # Required to save models in YAML format
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Requirement already satisfied: pyyaml in /anaconda3/lib/python3.6/site-packages (3.12)
+<span class="ansi-yellow-fg">You are using pip version 19.0.3, however version 19.1.1 is available.
+You should consider upgrading via the &#39;pip install --upgrade pip&#39; command.</span>
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">tensorflow.python.keras</span> <span class="k">import</span> <span class="n">layers</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">VERSION</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/anaconda3/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1.13.1
+2.2.4-tf
+</pre></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">tf.keras</span></code> can run any Keras-compatible code, but keep in mind:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">tf.keras</span></code> version in the latest TensorFlow release might not be the same as the latest <code class="docutils literal notranslate"><span class="pre">keras</span></code> version from PyPI. Check <code class="docutils literal notranslate"><span class="pre">tf.keras.__version__</span></code>.</p></li>
+<li><p>When <a class="reference external" href="#weights_only">saving a model’s weights</a>, <code class="docutils literal notranslate"><span class="pre">tf.keras</span></code> defaults to the <a class="reference external" href="./checkpoints.md">checkpoint format</a>. Pass <code class="docutils literal notranslate"><span class="pre">save_format='h5'</span></code> to use HDF5.</p></li>
+</ul>
+</div>
+<div class="section" id="Build-a-simple-model">
+<h2>Build a simple model<a class="headerlink" href="#Build-a-simple-model" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Sequential-model">
+<h3>Sequential model<a class="headerlink" href="#Sequential-model" title="Permalink to this headline">¶</a></h3>
+<p>In Keras, you assemble <em>layers</em> to build <em>models</em>. A model is (usually) a graph of layers. The most common type of model is a stack of layers: the <code class="docutils literal notranslate"><span class="pre">tf.keras.Sequential</span></code> model.</p>
+<p>To build a simple, fully-connected network (i.e. multi-layer perceptron):</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
+<span class="c1"># Adds a densely-connected layer with 64 units to the model:</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="c1"># Add another:</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="c1"># Add a softmax layer with 10 output units:</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Configure-the-layers">
+<h3>Configure the layers<a class="headerlink" href="#Configure-the-layers" title="Permalink to this headline">¶</a></h3>
+<p>There are many <code class="docutils literal notranslate"><span class="pre">tf.keras.layers</span></code> available with some common constructor parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">activation</span></code>: Set the activation function for the layer. This parameter is specified by the name of a built-in function or as a callable object. By default, no activation is applied.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kernel_initializer</span></code> and <code class="docutils literal notranslate"><span class="pre">bias_initializer</span></code>: The initialization schemes that create the layer’s weights (kernel and bias). This parameter is a name or a callable object. This defaults to the <code class="docutils literal notranslate"><span class="pre">&quot;Glorot</span> <span class="pre">uniform&quot;</span></code> initializer.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kernel_regularizer</span></code> and <code class="docutils literal notranslate"><span class="pre">bias_regularizer</span></code>: The regularization schemes that apply the layer’s weights (kernel and bias), such as L1 or L2 regularization. By default, no regularization is applied.</p></li>
+</ul>
+<p>The following instantiates <code class="docutils literal notranslate"><span class="pre">tf.keras.layers.Dense</span></code> layers using constructor arguments:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Create a sigmoid layer:</span>
+<span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">)</span>
+<span class="c1"># Or:</span>
+<span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">)</span>
+
+<span class="c1"># A linear layer with L1 regularization of factor 0.01 applied to the kernel matrix:</span>
+<span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_regularizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">regularizers</span><span class="o">.</span><span class="n">l1</span><span class="p">(</span><span class="mf">0.01</span><span class="p">))</span>
+
+<span class="c1"># A linear layer with L2 regularization of factor 0.01 applied to the bias vector:</span>
+<span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">bias_regularizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">regularizers</span><span class="o">.</span><span class="n">l2</span><span class="p">(</span><span class="mf">0.01</span><span class="p">))</span>
+
+<span class="c1"># A linear layer with a kernel initialized to a random orthogonal matrix:</span>
+<span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;orthogonal&#39;</span><span class="p">)</span>
+
+<span class="c1"># A linear layer with a bias vector initialized to 2.0s:</span>
+<span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">bias_initializer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">initializers</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;tensorflow.python.keras.layers.core.Dense at 0x1310857f0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Train-and-evaluate">
+<h2>Train and evaluate<a class="headerlink" href="#Train-and-evaluate" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Set-up-training">
+<h3>Set up training<a class="headerlink" href="#Set-up-training" title="Permalink to this headline">¶</a></h3>
+<p>After the model is constructed, configure its learning process by calling the <code class="docutils literal notranslate"><span class="pre">compile</span></code> method:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+<span class="c1"># Adds a densely-connected layer with 64 units to the model:</span>
+<span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,)),</span>
+<span class="c1"># Add another:</span>
+<span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
+<span class="c1"># Add a softmax layer with 10 output units:</span>
+<span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">)])</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">AdamOptimizer</span><span class="p">(</span><span class="mf">0.001</span><span class="p">),</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING:tensorflow:From /anaconda3/lib/python3.6/site-packages/tensorflow/python/ops/resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+</pre></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">tf.keras.Model.compile</span></code> takes three important arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">optimizer</span></code>: This object specifies the training procedure. Pass it optimizer instances from the <code class="docutils literal notranslate"><span class="pre">tf.train</span></code> module, such as <code class="docutils literal notranslate"><span class="pre">tf.train.AdamOptimizer</span></code>, <code class="docutils literal notranslate"><span class="pre">tf.train.RMSPropOptimizer</span></code>, or <code class="docutils literal notranslate"><span class="pre">tf.train.GradientDescentOptimizer</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">loss</span></code>: The function to minimize during optimization. Common choices include mean square error (<code class="docutils literal notranslate"><span class="pre">mse</span></code>), <code class="docutils literal notranslate"><span class="pre">categorical_crossentropy</span></code>, and <code class="docutils literal notranslate"><span class="pre">binary_crossentropy</span></code>. Loss functions are specified by name or by passing a callable object from the <code class="docutils literal notranslate"><span class="pre">tf.keras.losses</span></code> module.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">metrics</span></code>: Used to monitor training. These are string names or callables from the <code class="docutils literal notranslate"><span class="pre">tf.keras.metrics</span></code> module.</p></li>
+</ul>
+<p>The following shows a few examples of configuring a model for training:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Configure a model for mean-squared error regression.</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">AdamOptimizer</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">,</span>       <span class="c1"># mean squared error</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mae&#39;</span><span class="p">])</span>  <span class="c1"># mean absolute error</span>
+
+<span class="c1"># Configure a model for categorical classification.</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">RMSPropOptimizer</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span>
+              <span class="n">loss</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">categorical_crossentropy</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">categorical_accuracy</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING:tensorflow:From /anaconda3/lib/python3.6/site-packages/tensorflow/python/keras/utils/losses_utils.py:170: to_float (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Input-NumPy-data">
+<h3>Input NumPy data<a class="headerlink" href="#Input-NumPy-data" title="Permalink to this headline">¶</a></h3>
+<p>For small datasets, use in-memory <a class="reference external" href="https://www.numpy.org/">NumPy</a> arrays to train and evaluate a model. The model is “fit” to the training data using the <code class="docutils literal notranslate"><span class="pre">fit</span></code> method:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">random_one_hot_labels</span><span class="p">(</span><span class="n">shape</span><span class="p">):</span>
+  <span class="n">n</span><span class="p">,</span> <span class="n">n_class</span> <span class="o">=</span> <span class="n">shape</span>
+  <span class="n">classes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_class</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+  <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n_class</span><span class="p">))</span>
+  <span class="n">labels</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">classes</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+  <span class="k">return</span> <span class="n">labels</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">random_one_hot_labels</span><span class="p">((</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING:tensorflow:From /anaconda3/lib/python3.6/site-packages/tensorflow/python/ops/math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+Epoch 1/10
+1000/1000 [==============================] - 0s 110us/sample - loss: 2.3425 - categorical_accuracy: 0.0990
+Epoch 2/10
+1000/1000 [==============================] - 0s 26us/sample - loss: 2.3110 - categorical_accuracy: 0.0960
+Epoch 3/10
+1000/1000 [==============================] - 0s 24us/sample - loss: 2.3125 - categorical_accuracy: 0.1060
+Epoch 4/10
+1000/1000 [==============================] - 0s 28us/sample - loss: 2.3036 - categorical_accuracy: 0.1200
+Epoch 5/10
+1000/1000 [==============================] - 0s 28us/sample - loss: 2.3036 - categorical_accuracy: 0.1170
+Epoch 6/10
+1000/1000 [==============================] - 0s 24us/sample - loss: 2.2947 - categorical_accuracy: 0.1230
+Epoch 7/10
+1000/1000 [==============================] - 0s 27us/sample - loss: 2.2671 - categorical_accuracy: 0.1310
+Epoch 8/10
+1000/1000 [==============================] - 0s 24us/sample - loss: 2.2547 - categorical_accuracy: 0.1570
+Epoch 9/10
+1000/1000 [==============================] - 0s 28us/sample - loss: 2.2140 - categorical_accuracy: 0.1560
+Epoch 10/10
+1000/1000 [==============================] - 0s 25us/sample - loss: 2.1878 - categorical_accuracy: 0.2020
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;tensorflow.python.keras.callbacks.History at 0x13158bb38&gt;
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">tf.keras.Model.fit</span></code> takes three important arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">epochs</span></code>: Training is structured into <em>epochs</em>. An epoch is one iteration over the entire input data (this is done in smaller batches).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">batch_size</span></code>: When passed NumPy data, the model slices the data into smaller batches and iterates over these batches during training. This integer specifies the size of each batch. Be aware that the last batch may be smaller if the total number of samples is not divisible by the batch size.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">validation_data</span></code>: When prototyping a model, you want to easily monitor its performance on some validation data. Passing this argument—a tuple of inputs and labels—allows the model to display the loss and metrics in inference mode for the passed data, at the end of each epoch.</p></li>
+</ul>
+<p>Here’s an example using <code class="docutils literal notranslate"><span class="pre">validation_data</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">random_one_hot_labels</span><span class="p">((</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="n">val_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
+<span class="n">val_labels</span> <span class="o">=</span> <span class="n">random_one_hot_labels</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+          <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_data</span><span class="p">,</span> <span class="n">val_labels</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Train on 1000 samples, validate on 100 samples
+Epoch 1/10
+1000/1000 [==============================] - 0s 73us/sample - loss: 2.3380 - categorical_accuracy: 0.0860 - val_loss: 2.2991 - val_categorical_accuracy: 0.0600
+Epoch 2/10
+1000/1000 [==============================] - 0s 30us/sample - loss: 2.3072 - categorical_accuracy: 0.1180 - val_loss: 2.3412 - val_categorical_accuracy: 0.0600
+Epoch 3/10
+1000/1000 [==============================] - 0s 31us/sample - loss: 2.2924 - categorical_accuracy: 0.1210 - val_loss: 2.2721 - val_categorical_accuracy: 0.1300
+Epoch 4/10
+1000/1000 [==============================] - 0s 29us/sample - loss: 2.2929 - categorical_accuracy: 0.1250 - val_loss: 2.4445 - val_categorical_accuracy: 0.1000
+Epoch 5/10
+1000/1000 [==============================] - 0s 31us/sample - loss: 2.2684 - categorical_accuracy: 0.1260 - val_loss: 2.2929 - val_categorical_accuracy: 0.1600
+Epoch 6/10
+1000/1000 [==============================] - 0s 28us/sample - loss: 2.2557 - categorical_accuracy: 0.1460 - val_loss: 2.3519 - val_categorical_accuracy: 0.1200
+Epoch 7/10
+1000/1000 [==============================] - 0s 30us/sample - loss: 2.2347 - categorical_accuracy: 0.1760 - val_loss: 2.5954 - val_categorical_accuracy: 0.0700
+Epoch 8/10
+1000/1000 [==============================] - 0s 27us/sample - loss: 2.2108 - categorical_accuracy: 0.1720 - val_loss: 2.5220 - val_categorical_accuracy: 0.1200
+Epoch 9/10
+1000/1000 [==============================] - 0s 28us/sample - loss: 2.1732 - categorical_accuracy: 0.1900 - val_loss: 2.3779 - val_categorical_accuracy: 0.0900
+Epoch 10/10
+1000/1000 [==============================] - 0s 30us/sample - loss: 2.1372 - categorical_accuracy: 0.2200 - val_loss: 2.3935 - val_categorical_accuracy: 0.1100
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;tensorflow.python.keras.callbacks.History at 0x131085160&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Input-tf.data-datasets">
+<h3>Input tf.data datasets<a class="headerlink" href="#Input-tf.data-datasets" title="Permalink to this headline">¶</a></h3>
+<p>Use the <a class="reference external" href="./datasets.md">Datasets API</a> to scale to large datasets or multi-device training. Pass a <code class="docutils literal notranslate"><span class="pre">tf.data.Dataset</span></code> instance to the <code class="docutils literal notranslate"><span class="pre">fit</span></code> method:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Instantiates a toy dataset instance:</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">))</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
+
+<span class="c1"># Don&#39;t forget to specify `steps_per_epoch` when calling `fit` on a dataset.</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">steps_per_epoch</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Epoch 1/10
+30/30 [==============================] - 0s 4ms/step - loss: 2.1047 - categorical_accuracy: 0.2188
+Epoch 2/10
+30/30 [==============================] - 0s 753us/step - loss: 2.0594 - categorical_accuracy: 0.2436
+Epoch 3/10
+30/30 [==============================] - 0s 861us/step - loss: 2.0034 - categorical_accuracy: 0.2746
+Epoch 4/10
+30/30 [==============================] - 0s 935us/step - loss: 1.9621 - categorical_accuracy: 0.2949
+Epoch 5/10
+30/30 [==============================] - 0s 935us/step - loss: 1.9258 - categorical_accuracy: 0.3184
+Epoch 6/10
+30/30 [==============================] - 0s 936us/step - loss: 1.8872 - categorical_accuracy: 0.3226
+Epoch 7/10
+30/30 [==============================] - 0s 854us/step - loss: 1.8293 - categorical_accuracy: 0.3451
+Epoch 8/10
+30/30 [==============================] - 0s 890us/step - loss: 1.7992 - categorical_accuracy: 0.3547
+Epoch 9/10
+30/30 [==============================] - 0s 831us/step - loss: 1.7396 - categorical_accuracy: 0.3739
+Epoch 10/10
+30/30 [==============================] - 0s 977us/step - loss: 1.6762 - categorical_accuracy: 0.3942
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;tensorflow.python.keras.callbacks.History at 0x13175b2e8&gt;
+</pre></div>
+</div>
+</div>
+<p>Here, the <code class="docutils literal notranslate"><span class="pre">fit</span></code> method uses the <code class="docutils literal notranslate"><span class="pre">steps_per_epoch</span></code> argument—this is the number of training steps the model runs before it moves to the next epoch. Since the <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> yields batches of data, this snippet does not require a <code class="docutils literal notranslate"><span class="pre">batch_size</span></code>.</p>
+<p>Datasets can also be used for validation:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">))</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
+
+<span class="n">val_dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">val_data</span><span class="p">,</span> <span class="n">val_labels</span><span class="p">))</span>
+<span class="n">val_dataset</span> <span class="o">=</span> <span class="n">val_dataset</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">steps_per_epoch</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+          <span class="n">validation_data</span><span class="o">=</span><span class="n">val_dataset</span><span class="p">,</span>
+          <span class="n">validation_steps</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Epoch 1/10
+30/30 [==============================] - 0s 6ms/step - loss: 1.6703 - categorical_accuracy: 0.4135 - val_loss: 2.8076 - val_categorical_accuracy: 0.1354
+Epoch 2/10
+30/30 [==============================] - 0s 915us/step - loss: 1.5999 - categorical_accuracy: 0.4380 - val_loss: 3.1164 - val_categorical_accuracy: 0.1324
+Epoch 3/10
+30/30 [==============================] - 0s 962us/step - loss: 1.5347 - categorical_accuracy: 0.4594 - val_loss: 3.1184 - val_categorical_accuracy: 0.1471
+Epoch 4/10
+30/30 [==============================] - 0s 927us/step - loss: 1.5050 - categorical_accuracy: 0.4519 - val_loss: 3.2427 - val_categorical_accuracy: 0.0882
+Epoch 5/10
+30/30 [==============================] - 0s 957us/step - loss: 1.4840 - categorical_accuracy: 0.4722 - val_loss: 3.3915 - val_categorical_accuracy: 0.1250
+Epoch 6/10
+30/30 [==============================] - 0s 1ms/step - loss: 1.4453 - categorical_accuracy: 0.4872 - val_loss: 3.6545 - val_categorical_accuracy: 0.1176
+Epoch 7/10
+30/30 [==============================] - 0s 974us/step - loss: 1.3980 - categorical_accuracy: 0.5064 - val_loss: 3.0379 - val_categorical_accuracy: 0.1324
+Epoch 8/10
+30/30 [==============================] - 0s 908us/step - loss: 1.3834 - categorical_accuracy: 0.4968 - val_loss: 4.0685 - val_categorical_accuracy: 0.1471
+Epoch 9/10
+30/30 [==============================] - 0s 1ms/step - loss: 1.3301 - categorical_accuracy: 0.5256 - val_loss: 3.4488 - val_categorical_accuracy: 0.0833
+Epoch 10/10
+30/30 [==============================] - 0s 977us/step - loss: 1.2850 - categorical_accuracy: 0.5395 - val_loss: 3.6128 - val_categorical_accuracy: 0.1912
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;tensorflow.python.keras.callbacks.History at 0x10e007128&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Evaluate-and-predict">
+<h3>Evaluate and predict<a class="headerlink" href="#Evaluate-and-predict" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">tf.keras.Model.evaluate</span></code> and <code class="docutils literal notranslate"><span class="pre">tf.keras.Model.predict</span></code> methods can use NumPy data and a <code class="docutils literal notranslate"><span class="pre">tf.data.Dataset</span></code>.</p>
+<p>To <em>evaluate</em> the inference-mode loss and metrics for the data provided:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">random_one_hot_labels</span><span class="p">((</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1000/1000 [==============================] - 0s 61us/sample - loss: 3.7616 - categorical_accuracy: 0.0950
+30/30 [==============================] - 0s 2ms/step - loss: 1.6713 - categorical_accuracy: 0.4219
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[1.6712568203608196, 0.421875]
+</pre></div>
+</div>
+</div>
+<p>And to <em>predict</em> the output of the last layer in inference for the data provided, as a NumPy array:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(1000, 10)
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Build-advanced-models">
+<h2>Build advanced models<a class="headerlink" href="#Build-advanced-models" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Functional-API">
+<h3>Functional API<a class="headerlink" href="#Functional-API" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">tf.keras.Sequential</span></code> model is a simple stack of layers that cannot represent arbitrary models. Use the <a class="reference external" href="https://keras.io/getting-started/functional-api-guide/">Keras functional API</a> to build complex model topologies such as:</p>
+<ul class="simple">
+<li><p>Multi-input models,</p></li>
+<li><p>Multi-output models,</p></li>
+<li><p>Models with shared layers (the same layer called several times),</p></li>
+<li><p>Models with non-sequential data flows (e.g. residual connections).</p></li>
+</ul>
+<p>Building a model with the functional API works like this:</p>
+<ol class="arabic simple">
+<li><p>A layer instance is callable and returns a tensor.</p></li>
+<li><p>Input tensors and output tensors are used to define a <code class="docutils literal notranslate"><span class="pre">tf.keras.Model</span></code> instance.</p></li>
+<li><p>This model is trained just like the <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> model.</p></li>
+</ol>
+<p>The following example uses the functional API to build a simple, fully-connected network:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,))</span>  <span class="c1"># Returns a placeholder tensor</span>
+
+<span class="c1"># A layer instance is callable on a tensor, and returns a tensor.</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Instantiate the model given inputs and outputs.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">predictions</span><span class="p">)</span>
+
+<span class="c1"># The compile step specifies the training configuration.</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">RMSPropOptimizer</span><span class="p">(</span><span class="mf">0.001</span><span class="p">),</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+
+<span class="c1"># Trains for 5 epochs</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Epoch 1/5
+1000/1000 [==============================] - 0s 124us/sample - loss: 2.3483 - acc: 0.0960
+Epoch 2/5
+1000/1000 [==============================] - 0s 30us/sample - loss: 2.3318 - acc: 0.1050
+Epoch 3/5
+1000/1000 [==============================] - 0s 30us/sample - loss: 2.3178 - acc: 0.1070
+Epoch 4/5
+1000/1000 [==============================] - 0s 30us/sample - loss: 2.3087 - acc: 0.1100
+Epoch 5/5
+1000/1000 [==============================] - 0s 32us/sample - loss: 2.2998 - acc: 0.1210
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;tensorflow.python.keras.callbacks.History at 0x131c19eb8&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Model-subclassing">
+<h3>Model subclassing<a class="headerlink" href="#Model-subclassing" title="Permalink to this headline">¶</a></h3>
+<p>Build a fully-customizable model by subclassing <code class="docutils literal notranslate"><span class="pre">tf.keras.Model</span></code> and defining your own forward pass. Create layers in the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method and set them as attributes of the class instance. Define the forward pass in the <code class="docutils literal notranslate"><span class="pre">call</span></code> method.</p>
+<p>Model subclassing is particularly useful when <a class="reference external" href="./eager.md">eager execution</a> is enabled since the forward pass can be written imperatively.</p>
+<p>Key Point: Use the right API for the job. While model subclassing offers flexibility, it comes at a cost of greater complexity and more opportunities for user errors. If possible, prefer the functional API.</p>
+<p>The following example shows a subclassed <code class="docutils literal notranslate"><span class="pre">tf.keras.Model</span></code> using a custom forward pass:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">MyModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_model&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span> <span class="o">=</span> <span class="n">num_classes</span>
+    <span class="c1"># Define your layers here.</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dense_1</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dense_2</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">num_classes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+    <span class="c1"># Define your forward pass here,</span>
+    <span class="c1"># using layers you previously defined (in `__init__`).</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense_1</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense_2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">compute_output_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_shape</span><span class="p">):</span>
+    <span class="c1"># You need to override this function if you want to use the subclassed model</span>
+    <span class="c1"># as part of a functional-style model.</span>
+    <span class="c1"># Otherwise, this method is optional.</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">TensorShape</span><span class="p">(</span><span class="n">input_shape</span><span class="p">)</span><span class="o">.</span><span class="n">as_list</span><span class="p">()</span>
+    <span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span>
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">TensorShape</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Instantiate the new model class:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">(</span><span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># The compile step specifies the training configuration.</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">RMSPropOptimizer</span><span class="p">(</span><span class="mf">0.001</span><span class="p">),</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+
+<span class="c1"># Trains for 5 epochs.</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Epoch 1/5
+1000/1000 [==============================] - 0s 122us/sample - loss: 2.3213 - acc: 0.0880
+Epoch 2/5
+1000/1000 [==============================] - 0s 26us/sample - loss: 2.3202 - acc: 0.0870
+Epoch 3/5
+1000/1000 [==============================] - 0s 27us/sample - loss: 2.3165 - acc: 0.0920
+Epoch 4/5
+1000/1000 [==============================] - 0s 28us/sample - loss: 2.3111 - acc: 0.0970
+Epoch 5/5
+1000/1000 [==============================] - 0s 30us/sample - loss: 2.3059 - acc: 0.1040
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;tensorflow.python.keras.callbacks.History at 0x1321fdac8&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Custom-layers">
+<h3>Custom layers<a class="headerlink" href="#Custom-layers" title="Permalink to this headline">¶</a></h3>
+<p>Create a custom layer by subclassing <code class="docutils literal notranslate"><span class="pre">tf.keras.layers.Layer</span></code> and implementing the following methods:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">build</span></code>: Create the weights of the layer. Add weights with the <code class="docutils literal notranslate"><span class="pre">add_weight</span></code> method.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">call</span></code>: Define the forward pass.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compute_output_shape</span></code>: Specify how to compute the output shape of the layer given the input shape.</p></li>
+<li><p>Optionally, a layer can be serialized by implementing the <code class="docutils literal notranslate"><span class="pre">get_config</span></code> method and the <code class="docutils literal notranslate"><span class="pre">from_config</span></code> class method.</p></li>
+</ul>
+<p>Here’s an example of a custom layer that implements a <code class="docutils literal notranslate"><span class="pre">matmul</span></code> of an input with a kernel matrix:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">class</span> <span class="nc">MyLayer</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Layer</span><span class="p">):</span>
+
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">output_dim</span> <span class="o">=</span> <span class="n">output_dim</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">MyLayer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_shape</span><span class="p">):</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">TensorShape</span><span class="p">((</span><span class="n">input_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_dim</span><span class="p">))</span>
+    <span class="c1"># Create a trainable weight variable for this layer.</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;kernel&#39;</span><span class="p">,</span>
+                                  <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span>
+                                  <span class="n">initializer</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span>
+                                  <span class="n">trainable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Make sure to call the `build` method at the end</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">MyLayer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">input_shape</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">compute_output_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_shape</span><span class="p">):</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">TensorShape</span><span class="p">(</span><span class="n">input_shape</span><span class="p">)</span><span class="o">.</span><span class="n">as_list</span><span class="p">()</span>
+    <span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_dim</span>
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">TensorShape</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">get_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">base_config</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">MyLayer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span>
+    <span class="n">base_config</span><span class="p">[</span><span class="s1">&#39;output_dim&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_dim</span>
+    <span class="k">return</span> <span class="n">base_config</span>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">from_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">config</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Create a model using your custom layer:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+    <span class="n">MyLayer</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;softmax&#39;</span><span class="p">)])</span>
+
+<span class="c1"># The compile step specifies the training configuration</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">RMSPropOptimizer</span><span class="p">(</span><span class="mf">0.001</span><span class="p">),</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+
+<span class="c1"># Trains for 5 epochs.</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Epoch 1/5
+1000/1000 [==============================] - 0s 118us/sample - loss: 2.3071 - acc: 0.1030
+Epoch 2/5
+1000/1000 [==============================] - 0s 26us/sample - loss: 2.3058 - acc: 0.0990
+Epoch 3/5
+1000/1000 [==============================] - 0s 26us/sample - loss: 2.3040 - acc: 0.0970
+Epoch 4/5
+1000/1000 [==============================] - 0s 28us/sample - loss: 2.3018 - acc: 0.1150
+Epoch 5/5
+1000/1000 [==============================] - 0s 28us/sample - loss: 2.2991 - acc: 0.1170
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;tensorflow.python.keras.callbacks.History at 0x132583780&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Callbacks">
+<h2>Callbacks<a class="headerlink" href="#Callbacks" title="Permalink to this headline">¶</a></h2>
+<p>A callback is an object passed to a model to customize and extend its behavior during training. You can write your own custom callback, or use the built-in <code class="docutils literal notranslate"><span class="pre">tf.keras.callbacks</span></code> that include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tf.keras.callbacks.ModelCheckpoint</span></code>: Save checkpoints of your model at regular intervals.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tf.keras.callbacks.LearningRateScheduler</span></code>: Dynamically change the learning rate.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tf.keras.callbacks.EarlyStopping</span></code>: Interrupt training when validation performance has stopped improving.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tf.keras.callbacks.TensorBoard</span></code>: Monitor the model’s behavior using <a class="reference external" href="./summaries_and_tensorboard.md">TensorBoard</a>.</p></li>
+</ul>
+<p>To use a <code class="docutils literal notranslate"><span class="pre">tf.keras.callbacks.Callback</span></code>, pass it to the model’s <code class="docutils literal notranslate"><span class="pre">fit</span></code> method:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="c1"># Interrupt training if `val_loss` stops improving for over 2 epochs</span>
+  <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">EarlyStopping</span><span class="p">(</span><span class="n">patience</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;val_loss&#39;</span><span class="p">),</span>
+  <span class="c1"># Write TensorBoard logs to `./logs` directory</span>
+  <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">TensorBoard</span><span class="p">(</span><span class="n">log_dir</span><span class="o">=</span><span class="s1">&#39;./logs&#39;</span><span class="p">)</span>
+<span class="p">]</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">,</span>
+          <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_data</span><span class="p">,</span> <span class="n">val_labels</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Train on 1000 samples, validate on 100 samples
+Epoch 1/5
+1000/1000 [==============================] - 0s 83us/sample - loss: 2.2971 - acc: 0.1230 - val_loss: 2.3154 - val_acc: 0.1000
+Epoch 2/5
+1000/1000 [==============================] - 0s 28us/sample - loss: 2.2947 - acc: 0.1190 - val_loss: 2.3132 - val_acc: 0.1000
+Epoch 3/5
+1000/1000 [==============================] - 0s 30us/sample - loss: 2.2918 - acc: 0.1210 - val_loss: 2.3137 - val_acc: 0.1100
+Epoch 4/5
+1000/1000 [==============================] - 0s 30us/sample - loss: 2.2898 - acc: 0.1190 - val_loss: 2.3124 - val_acc: 0.1000
+Epoch 5/5
+1000/1000 [==============================] - 0s 29us/sample - loss: 2.2881 - acc: 0.1310 - val_loss: 2.3174 - val_acc: 0.0900
+</pre></div></div>
+</div>
+<div class="section" id="Weights-only">
+<h3>Weights only<a class="headerlink" href="#Weights-only" title="Permalink to this headline">¶</a></h3>
+<p>Save and load the weights of a model using <code class="docutils literal notranslate"><span class="pre">tf.keras.Model.save_weights</span></code>:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+<span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,)),</span>
+<span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">)])</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">AdamOptimizer</span><span class="p">(</span><span class="mf">0.001</span><span class="p">),</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Save weights to a TensorFlow Checkpoint file</span>
+<span class="n">model</span><span class="o">.</span><span class="n">save_weights</span><span class="p">(</span><span class="s1">&#39;./weights/my_model&#39;</span><span class="p">)</span>
+
+<span class="c1"># Restore the model&#39;s state,</span>
+<span class="c1"># this requires a model with the same architecture.</span>
+<span class="n">model</span><span class="o">.</span><span class="n">load_weights</span><span class="p">(</span><span class="s1">&#39;./weights/my_model&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING:tensorflow:From /anaconda3/lib/python3.6/site-packages/tensorflow/python/keras/engine/network.py:1436: update_checkpoint_state (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.train.CheckpointManager to manage checkpoints rather than manually editing the Checkpoint proto.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;tensorflow.python.training.checkpointable.util.CheckpointLoadStatus at 0x132928e10&gt;
+</pre></div>
+</div>
+</div>
+<p>By default, this saves the model’s weights in the <a class="reference external" href="./checkpoints.md">TensorFlow checkpoint</a> file format. Weights can also be saved to the Keras HDF5 format (the default for the multi-backend implementation of Keras):</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Save weights to a HDF5 file</span>
+<span class="n">model</span><span class="o">.</span><span class="n">save_weights</span><span class="p">(</span><span class="s1">&#39;my_model.h5&#39;</span><span class="p">,</span> <span class="n">save_format</span><span class="o">=</span><span class="s1">&#39;h5&#39;</span><span class="p">)</span>
+
+<span class="c1"># Restore the model&#39;s state</span>
+<span class="n">model</span><span class="o">.</span><span class="n">load_weights</span><span class="p">(</span><span class="s1">&#39;my_model.h5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Configuration-only">
+<h3>Configuration only<a class="headerlink" href="#Configuration-only" title="Permalink to this headline">¶</a></h3>
+<p>A model’s configuration can be saved—this serializes the model architecture without any weights. A saved configuration can recreate and initialize the same model, even without the code that defined the original model. Keras supports JSON and YAML serialization formats:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Serialize a model to JSON format</span>
+<span class="n">json_string</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span>
+<span class="n">json_string</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&#39;{&quot;class_name&quot;: &quot;Sequential&quot;, &quot;config&quot;: {&quot;name&quot;: &quot;sequential_3&quot;, &quot;layers&quot;: [{&quot;class_name&quot;: &quot;Dense&quot;, &quot;config&quot;: {&quot;name&quot;: &quot;dense_17&quot;, &quot;trainable&quot;: true, &quot;batch_input_shape&quot;: [null, 32], &quot;dtype&quot;: &quot;float32&quot;, &quot;units&quot;: 64, &quot;activation&quot;: &quot;relu&quot;, &quot;use_bias&quot;: true, &quot;kernel_initializer&quot;: {&quot;class_name&quot;: &quot;GlorotUniform&quot;, &quot;config&quot;: {&quot;seed&quot;: null, &quot;dtype&quot;: &quot;float32&quot;}}, &quot;bias_initializer&quot;: {&quot;class_name&quot;: &quot;Zeros&quot;, &quot;config&quot;: {&quot;dtype&quot;: &quot;float32&quot;}}, &quot;kernel_regularizer&quot;: null, &quot;bias_regularizer&quot;: null, &quot;activity_regularizer&quot;: null, &quot;kernel_constraint&quot;: null, &quot;bias_constraint&quot;: null}}, {&quot;class_name&quot;: &quot;Dense&quot;, &quot;config&quot;: {&quot;name&quot;: &quot;dense_18&quot;, &quot;trainable&quot;: true, &quot;dtype&quot;: &quot;float32&quot;, &quot;units&quot;: 10, &quot;activation&quot;: &quot;softmax&quot;, &quot;use_bias&quot;: true, &quot;kernel_initializer&quot;: {&quot;class_name&quot;: &quot;GlorotUniform&quot;, &quot;config&quot;: {&quot;seed&quot;: null, &quot;dtype&quot;: &quot;float32&quot;}}, &quot;bias_initializer&quot;: {&quot;class_name&quot;: &quot;Zeros&quot;, &quot;config&quot;: {&quot;dtype&quot;: &quot;float32&quot;}}, &quot;kernel_regularizer&quot;: null, &quot;bias_regularizer&quot;: null, &quot;activity_regularizer&quot;: null, &quot;kernel_constraint&quot;: null, &quot;bias_constraint&quot;: null}}]}, &quot;keras_version&quot;: &quot;2.2.4-tf&quot;, &quot;backend&quot;: &quot;tensorflow&quot;}&#39;
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_string</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;backend&#39;: &#39;tensorflow&#39;,
+ &#39;class_name&#39;: &#39;Sequential&#39;,
+ &#39;config&#39;: {&#39;layers&#39;: [{&#39;class_name&#39;: &#39;Dense&#39;,
+                        &#39;config&#39;: {&#39;activation&#39;: &#39;relu&#39;,
+                                   &#39;activity_regularizer&#39;: None,
+                                   &#39;batch_input_shape&#39;: [None, 32],
+                                   &#39;bias_constraint&#39;: None,
+                                   &#39;bias_initializer&#39;: {&#39;class_name&#39;: &#39;Zeros&#39;,
+                                                        &#39;config&#39;: {&#39;dtype&#39;: &#39;float32&#39;}},
+                                   &#39;bias_regularizer&#39;: None,
+                                   &#39;dtype&#39;: &#39;float32&#39;,
+                                   &#39;kernel_constraint&#39;: None,
+                                   &#39;kernel_initializer&#39;: {&#39;class_name&#39;: &#39;GlorotUniform&#39;,
+                                                          &#39;config&#39;: {&#39;dtype&#39;: &#39;float32&#39;,
+                                                                     &#39;seed&#39;: None}},
+                                   &#39;kernel_regularizer&#39;: None,
+                                   &#39;name&#39;: &#39;dense_17&#39;,
+                                   &#39;trainable&#39;: True,
+                                   &#39;units&#39;: 64,
+                                   &#39;use_bias&#39;: True}},
+                       {&#39;class_name&#39;: &#39;Dense&#39;,
+                        &#39;config&#39;: {&#39;activation&#39;: &#39;softmax&#39;,
+                                   &#39;activity_regularizer&#39;: None,
+                                   &#39;bias_constraint&#39;: None,
+                                   &#39;bias_initializer&#39;: {&#39;class_name&#39;: &#39;Zeros&#39;,
+                                                        &#39;config&#39;: {&#39;dtype&#39;: &#39;float32&#39;}},
+                                   &#39;bias_regularizer&#39;: None,
+                                   &#39;dtype&#39;: &#39;float32&#39;,
+                                   &#39;kernel_constraint&#39;: None,
+                                   &#39;kernel_initializer&#39;: {&#39;class_name&#39;: &#39;GlorotUniform&#39;,
+                                                          &#39;config&#39;: {&#39;dtype&#39;: &#39;float32&#39;,
+                                                                     &#39;seed&#39;: None}},
+                                   &#39;kernel_regularizer&#39;: None,
+                                   &#39;name&#39;: &#39;dense_18&#39;,
+                                   &#39;trainable&#39;: True,
+                                   &#39;units&#39;: 10,
+                                   &#39;use_bias&#39;: True}}],
+            &#39;name&#39;: &#39;sequential_3&#39;},
+ &#39;keras_version&#39;: &#39;2.2.4-tf&#39;}
+</pre></div></div>
+</div>
+<p>Recreate the model (newly initialized) from the JSON:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fresh_model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">model_from_json</span><span class="p">(</span><span class="n">json_string</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Serializing a model to YAML format requires that you install <code class="docutils literal notranslate"><span class="pre">pyyaml</span></code> <em>before you import TensorFlow</em>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">yaml_string</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">to_yaml</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">yaml_string</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+backend: tensorflow
+class_name: Sequential
+config:
+  layers:
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      batch_input_shape: !!python/tuple [null, 32]
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      bias_regularizer: null
+      dtype: float32
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: GlorotUniform
+        config: {dtype: float32, seed: null}
+      kernel_regularizer: null
+      name: dense_17
+      trainable: true
+      units: 64
+      use_bias: true
+  - class_name: Dense
+    config:
+      activation: softmax
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      bias_regularizer: null
+      dtype: float32
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: GlorotUniform
+        config: {dtype: float32, seed: null}
+      kernel_regularizer: null
+      name: dense_18
+      trainable: true
+      units: 10
+      use_bias: true
+  name: sequential_3
+keras_version: 2.2.4-tf
+
+</pre></div></div>
+</div>
+<p>Recreate the model from the YAML:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fresh_model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">model_from_yaml</span><span class="p">(</span><span class="n">yaml_string</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Caution: Subclassed models are not serializable because their architecture is defined by the Python code in the body of the <code class="docutils literal notranslate"><span class="pre">call</span></code> method.</p>
+</div>
+<div class="section" id="Entire-model">
+<h3>Entire model<a class="headerlink" href="#Entire-model" title="Permalink to this headline">¶</a></h3>
+<p>The entire model can be saved to a file that contains the weight values, the model’s configuration, and even the optimizer’s configuration. This allows you to checkpoint a model and resume training later—from the exact same state—without access to the original code.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Create a trivial model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+  <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,)),</span>
+  <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">)</span>
+<span class="p">])</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;rmsprop&#39;</span><span class="p">,</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+
+<span class="c1"># Save entire model to a HDF5 file</span>
+<span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;my_model.h5&#39;</span><span class="p">)</span>
+
+<span class="c1"># Recreate the exact same model, including weights and optimizer.</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s1">&#39;my_model.h5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Epoch 1/5
+1000/1000 [==============================] - 0s 164us/sample - loss: 2.3280 - acc: 0.0930
+Epoch 2/5
+1000/1000 [==============================] - 0s 36us/sample - loss: 2.3028 - acc: 0.1030
+Epoch 3/5
+1000/1000 [==============================] - 0s 36us/sample - loss: 2.2939 - acc: 0.1130
+Epoch 4/5
+1000/1000 [==============================] - 0s 42us/sample - loss: 2.2860 - acc: 0.1300
+Epoch 5/5
+1000/1000 [==============================] - 0s 35us/sample - loss: 2.2773 - acc: 0.1530
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Eager-execution">
+<h2>Eager execution<a class="headerlink" href="#Eager-execution" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="./eager.md">Eager execution</a> is an imperative programming environment that evaluates operations immediately. This is not required for Keras, but is supported by <code class="docutils literal notranslate"><span class="pre">tf.keras</span></code> and useful for inspecting your program and debugging.</p>
+<p>All of the <code class="docutils literal notranslate"><span class="pre">tf.keras</span></code> model-building APIs are compatible with eager execution. And while the <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> and functional APIs can be used, eager execution especially benefits <em>model subclassing</em> and building <em>custom layers</em>—the APIs that require you to write the forward pass as code (instead of the APIs that create models by assembling existing layers).</p>
+<p>See the <a class="reference external" href="./eager.md#build_a_model">eager execution guide</a> for examples of using Keras models with custom training loops and <code class="docutils literal notranslate"><span class="pre">tf.GradientTape</span></code>.</p>
+</div>
+<div class="section" id="Distribution">
+<h2>Distribution<a class="headerlink" href="#Distribution" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Estimators">
+<h3>Estimators<a class="headerlink" href="#Estimators" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference external" href="./estimators.md">Estimators</a> API is used for training models for distributed environments. This targets industry use cases such as distributed training on large datasets that can export a model for production.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">tf.keras.Model</span></code> can be trained with the <code class="docutils literal notranslate"><span class="pre">tf.estimator</span></code> API by converting the model to an <code class="docutils literal notranslate"><span class="pre">tf.estimator.Estimator</span></code> object with <code class="docutils literal notranslate"><span class="pre">tf.keras.estimator.model_to_estimator</span></code>. See <a class="reference external" href="./estimators.md#creating_estimators_from_keras_models">Creating Estimators from Keras models</a>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,)),</span>
+                          <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">)])</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">RMSPropOptimizer</span><span class="p">(</span><span class="mf">0.001</span><span class="p">),</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+
+<span class="n">estimator</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">model_to_estimator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+INFO:tensorflow:Using default config.
+WARNING:tensorflow:Using temporary folder as model directory: /var/folders/v8/t16pxrwn6w33036877tr30br0000gn/T/tmph38wc1n7
+INFO:tensorflow:Using the Keras model provided.
+INFO:tensorflow:Using config: {&#39;_model_dir&#39;: &#39;/var/folders/v8/t16pxrwn6w33036877tr30br0000gn/T/tmph38wc1n7&#39;, &#39;_tf_random_seed&#39;: None, &#39;_save_summary_steps&#39;: 100, &#39;_save_checkpoints_steps&#39;: None, &#39;_save_checkpoints_secs&#39;: 600, &#39;_session_config&#39;: allow_soft_placement: true
+graph_options {
+  rewrite_options {
+    meta_optimizer_iterations: ONE
+  }
+}
+, &#39;_keep_checkpoint_max&#39;: 5, &#39;_keep_checkpoint_every_n_hours&#39;: 10000, &#39;_log_step_count_steps&#39;: 100, &#39;_train_distribute&#39;: None, &#39;_device_fn&#39;: None, &#39;_protocol&#39;: None, &#39;_eval_distribute&#39;: None, &#39;_experimental_distribute&#39;: None, &#39;_service&#39;: None, &#39;_cluster_spec&#39;: &lt;tensorflow.python.training.server_lib.ClusterSpec object at 0x1330afc50&gt;, &#39;_task_type&#39;: &#39;worker&#39;, &#39;_task_id&#39;: 0, &#39;_global_id_in_cluster&#39;: 0, &#39;_master&#39;: &#39;&#39;, &#39;_evaluation_master&#39;: &#39;&#39;, &#39;_is_chief&#39;: True, &#39;_num_ps_replicas&#39;: 0, &#39;_num_worker_replicas&#39;: 1}
+</pre></div></div>
+</div>
+<p>Note: Enable <a class="reference external" href="./eager.md">eager execution</a> for debugging <a class="reference external" href="./premade_estimators.md#create_input_functions">Estimator input functions</a> and inspecting data.</p>
+</div>
+<div class="section" id="Multiple-GPUs">
+<h3>Multiple GPUs<a class="headerlink" href="#Multiple-GPUs" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">tf.keras</span></code> models can run on multiple GPUs using <code class="docutils literal notranslate"><span class="pre">tf.contrib.distribute.DistributionStrategy</span></code>. This API provides distributed training on multiple GPUs with almost no changes to existing code.</p>
+<p>Currently, <code class="docutils literal notranslate"><span class="pre">tf.contrib.distribute.MirroredStrategy</span></code> is the only supported distribution strategy. <code class="docutils literal notranslate"><span class="pre">MirroredStrategy</span></code> does in-graph replication with synchronous training using all-reduce on a single machine. To use <code class="docutils literal notranslate"><span class="pre">DistributionStrategy</span></code> with Keras, convert the <code class="docutils literal notranslate"><span class="pre">tf.keras.Model</span></code> to a <code class="docutils literal notranslate"><span class="pre">tf.estimator.Estimator</span></code> with <code class="docutils literal notranslate"><span class="pre">tf.keras.estimator.model_to_estimator</span></code>, then train the estimator</p>
+<p>The following example distributes a <code class="docutils literal notranslate"><span class="pre">tf.keras.Model</span></code> across multiple GPUs on a single machine.</p>
+<p>First, define a simple model:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,)))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>
+
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">GradientDescentOptimizer</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+dense_23 (Dense)             (None, 16)                176
+_________________________________________________________________
+dense_24 (Dense)             (None, 1)                 17
+=================================================================
+Total params: 193
+Trainable params: 193
+Non-trainable params: 0
+_________________________________________________________________
+</pre></div></div>
+</div>
+<p>Define an <em>input pipeline</em>. The <code class="docutils literal notranslate"><span class="pre">input_fn</span></code> returns a <code class="docutils literal notranslate"><span class="pre">tf.data.Dataset</span></code> object used to distribute the data across multiple devices—with each device processing a slice of the input batch.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">input_fn</span><span class="p">():</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+  <span class="n">dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+  <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+  <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">dataset</span>
+</pre></div>
+</div>
+</div>
+<p>Next, create a <code class="docutils literal notranslate"><span class="pre">tf.estimator.RunConfig</span></code> and set the <code class="docutils literal notranslate"><span class="pre">train_distribute</span></code> argument to the <code class="docutils literal notranslate"><span class="pre">tf.contrib.distribute.MirroredStrategy</span></code> instance. When creating <code class="docutils literal notranslate"><span class="pre">MirroredStrategy</span></code>, you can specify a list of devices or set the <code class="docutils literal notranslate"><span class="pre">num_gpus</span></code> argument. The default uses all available GPUs, like the following:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">strategy</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">distribute</span><span class="o">.</span><span class="n">MirroredStrategy</span><span class="p">()</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">RunConfig</span><span class="p">(</span><span class="n">train_distribute</span><span class="o">=</span><span class="n">strategy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+WARNING: The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+If you depend on functionality not listed there, please file an issue.
+
+WARNING:tensorflow:Not all devices in `tf.distribute.Strategy` are visible to TensorFlow.
+INFO:tensorflow:Initializing RunConfig with distribution strategies.
+INFO:tensorflow:Not using Distribute Coordinator.
+</pre></div></div>
+</div>
+<p>Convert the Keras model to a <code class="docutils literal notranslate"><span class="pre">tf.estimator.Estimator</span></code> instance:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">keras_estimator</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">model_to_estimator</span><span class="p">(</span>
+  <span class="n">keras_model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+  <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+  <span class="n">model_dir</span><span class="o">=</span><span class="s1">&#39;/tmp/model_dir&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+INFO:tensorflow:Using the Keras model provided.
+INFO:tensorflow:Using config: {&#39;_model_dir&#39;: &#39;/tmp/model_dir&#39;, &#39;_tf_random_seed&#39;: None, &#39;_save_summary_steps&#39;: 100, &#39;_save_checkpoints_steps&#39;: None, &#39;_save_checkpoints_secs&#39;: 600, &#39;_session_config&#39;: allow_soft_placement: true
+graph_options {
+  rewrite_options {
+    meta_optimizer_iterations: ONE
+  }
+}
+, &#39;_keep_checkpoint_max&#39;: 5, &#39;_keep_checkpoint_every_n_hours&#39;: 10000, &#39;_log_step_count_steps&#39;: 100, &#39;_train_distribute&#39;: &lt;tensorflow.contrib.distribute.python.mirrored_strategy.MirroredStrategy object at 0x13d754dd8&gt;, &#39;_device_fn&#39;: None, &#39;_protocol&#39;: None, &#39;_eval_distribute&#39;: None, &#39;_experimental_distribute&#39;: None, &#39;_service&#39;: None, &#39;_cluster_spec&#39;: &lt;tensorflow.python.training.server_lib.ClusterSpec object at 0x13d754fd0&gt;, &#39;_task_type&#39;: &#39;worker&#39;, &#39;_task_id&#39;: 0, &#39;_global_id_in_cluster&#39;: 0, &#39;_master&#39;: &#39;&#39;, &#39;_evaluation_master&#39;: &#39;&#39;, &#39;_is_chief&#39;: True, &#39;_num_ps_replicas&#39;: 0, &#39;_num_worker_replicas&#39;: 1, &#39;_distribute_coordinator_mode&#39;: None}
+</pre></div></div>
+</div>
+<p>Finally, train the <code class="docutils literal notranslate"><span class="pre">Estimator</span></code> instance by providing the <code class="docutils literal notranslate"><span class="pre">input_fn</span></code> and <code class="docutils literal notranslate"><span class="pre">steps</span></code> arguments:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">keras_estimator</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">input_fn</span><span class="o">=</span><span class="n">input_fn</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+INFO:tensorflow:Calling model_fn.
+INFO:tensorflow:Done calling model_fn.
+INFO:tensorflow:Warm-starting with WarmStartSettings: WarmStartSettings(ckpt_to_initialize_from=&#39;/tmp/model_dir/keras/keras_model.ckpt&#39;, vars_to_warm_start=&#39;.*&#39;, var_name_to_vocab_info={}, var_name_to_prev_var_name={})
+INFO:tensorflow:Warm-starting from: (&#39;/tmp/model_dir/keras/keras_model.ckpt&#39;,)
+INFO:tensorflow:Warm-starting variable: dense_23/kernel; prev_var_name: Unchanged
+INFO:tensorflow:Warm-starting variable: dense_23/bias; prev_var_name: Unchanged
+INFO:tensorflow:Warm-starting variable: dense_24/kernel; prev_var_name: Unchanged
+INFO:tensorflow:Warm-starting variable: dense_24/bias; prev_var_name: Unchanged
+INFO:tensorflow:Create CheckpointSaverHook.
+INFO:tensorflow:Graph was finalized.
+INFO:tensorflow:Running local_init_op.
+INFO:tensorflow:Done running local_init_op.
+INFO:tensorflow:Saving checkpoints for 0 into /tmp/model_dir/model.ckpt.
+INFO:tensorflow:Initialize strategy
+INFO:tensorflow:loss = 0.70733285, step = 0
+INFO:tensorflow:Saving checkpoints for 10 into /tmp/model_dir/model.ckpt.
+INFO:tensorflow:Finalize strategy.
+INFO:tensorflow:Loss for final step: 0.7110878.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;tensorflow_estimator.python.estimator.estimator.Estimator at 0x13d754c88&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../week_6/00-intro.html" class="btn btn-neutral float-right" title="Intro to Cloud Services" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="04-basic_regression.html" class="btn btn-neutral float-left" title="Regression with Tensorflow" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, J.F. Koehler
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

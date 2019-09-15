@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Cloud Services: An Overview &mdash; Kellog  AI 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Mathematical Models" href="../week_7/models.html" />
+    <link rel="prev" title="Tensorflow" href="../week_5/tflow.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Kellog  AI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction and Python</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_1/00-tools.html">Tools for AI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_1/01-readings.html">Readings</a></li>
+</ul>
+<p class="caption"><span class="caption-text">R</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_2/00-Intro.html">Introduction to R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_2/01-Plotting.html">Plotting with R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_2/02-Machine-Learning.html">Machine Learning with R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_2/03-Time-Series.html">Time Series</a></li>
+</ul>
+<p class="caption"><span class="caption-text">KNIME</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_4/01-KNIME.html">KNIME: Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_4/02-Intro-Workflow.html">Starting a Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_4/03-Churn-Example.html">Customer Churn with KNIME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../week_4/04-visualizations.html">Data Visualization with KNIME</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tensorflow</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_5/tflow.html">Tensorflow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Cloud Services</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Cloud Services: An Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Google-Cloud-Platform">Google Cloud Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Microsoft-Azure-Platform">Microsoft Azure Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Amazon-Web-Services">Amazon Web Services</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Machine Learning Models</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_7/models.html">Mathematical Models</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Kaggle and Data Science Contests</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../week_8/data_science_contests.html">Kaggle Competitions</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Kellog  AI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Cloud Services: An Overview</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/week_6/cloud.ipynb" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Cloud-Services:-An-Overview">
+<h1>Cloud Services: An Overview<a class="headerlink" href="#Cloud-Services:-An-Overview" title="Permalink to this headline">¶</a></h1>
+<p>This week we aim to give an overview of a few popular cloud services that can be useful for both training and distributing AI models.</p>
+<div class="section" id="Google-Cloud-Platform">
+<h2>Google Cloud Platform<a class="headerlink" href="#Google-Cloud-Platform" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://cloud.google.com/docs/overview/">GCP Overview</a>: This overview is designed to help you understand the overall landscape of Google Cloud Platform (GCP). Here, you’ll take a brief look at some of the commonly used features and get pointers to documentation that can help you go deeper. Knowing what’s available and how the parts work together can help you make decisions about how to proceed. You’ll also get pointers to some tutorials that you can use to try out GCP in various
+scenarios.</p></li>
+<li><p><a class="reference external" href="https://cloud.google.com/docs/enterprise/best-practices-for-enterprise-organizations">Best Practices for Enterprise Organizations</a>: This guide introduces best practices to help enterprise customers like you on your journey to Google Cloud Platform (GCP). The guide is not an exhaustive list of recommendations. Instead, its goal is to help enterprise architects and technology stakeholders understand the scope of activities and plan accordingly. Each section provides key actions and includes
+links for further reading.</p></li>
+</ul>
+</div>
+<div class="section" id="Microsoft-Azure-Platform">
+<h2>Microsoft Azure Platform<a class="headerlink" href="#Microsoft-Azure-Platform" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.microsoft.com/en-us/learn/modules/cloud-operating-model/1-introduction">Overview of Microsoft Cloud Operating Model</a>: This module covers the basics of how to use the Cloud Operating Model, a tool that helps you recognize where your organization is in its cloud adoption journey and identify next steps. It also provides tools to support you in the adoption of cloud computing. We’ll describe how to identify opportunities and develop strategies based on real-world examples of
+cloud adoption.</p></li>
+<li><p><a class="reference external" href="https://docs.microsoft.com/en-us/learn/modules/intro-azure-areas-and-solutions/1-introduction">Introduction to Azure Solutions</a>: Get started with your digital transformation by exploring why Azure is the right platform for your organization and the overall value Azure can bring. We’ll demonstrate how digital transformation with Azure can empower employees, engage customers, optimize operations, and transform products.</p></li>
+<li><p><a class="reference external" href="https://docs.microsoft.com/en-us/learn/modules/azure-artificial-intelligence/1-introduction-to-azure-artificial-intelligence">Microsoft Azure AI strategy and solutions</a>: This module provides an overview of Azure AI and demonstrates how Microsoft tools, services, and infrastructure can help make AI real for your organization, whether you want to unlock insights from your latent data with knowledge mining, develop your own AI models with machine learning, or build immersive apps using AI.</p></li>
+</ul>
+</div>
+<div class="section" id="Amazon-Web-Services">
+<h2>Amazon Web Services<a class="headerlink" href="#Amazon-Web-Services" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="cloud_services/aws-overview.pdf">AWS Overview</a>: Amazon Web Services offers a broad set of global cloud-based products including compute, storage, databases, analytics, networking, mobile, developer tools, management tools, IoT, security, and enterprise applications: on-demand, available in seconds, with pay-as-you-go pricing. From data warehousing to deployment tools, directories to content delivery, over 140 AWS services are available. New services can be provisioned quickly, without the
+upfront capital expense. This allows enterprises, start-ups, small and medium-sized businesses, and customers in the public sector to access the building blocks they need to respond quickly to changing business requirements. This whitepaper provides you with an overview of the benefits of the AWS Cloud and introduces you to the services that make up the platform.</p></li>
+<li><p><a class="reference external" href="https://www.aws.training/learningobject/video?id=16207&amp;trk=gs_card">AWS Machine Learning Overview</a>: This course introduces Amazon Machine Learning and Artificial Intelligence tools that enable capabilities across frameworks and infrastructure, machine learning platforms, and API-driven services.</p></li>
+<li><p><a class="reference external" href="https://www.aws.training/learningobject/video?id=16428&amp;trk=gs_card">AWS Intro to AI</a>: In the course, we discuss what AI is and why it is important, and take a brief look at machine learning and deep learning—which are subsets of AI—and describe how Amazon uses AI in its products.</p></li>
+<li><p><a class="reference external" href="https://aws.amazon.com/getting-started/tutorials/train-deep-learning-model-aws-ec2-containers/">Training Models in AWS</a>: In this tutorial, you will train a TensorFlow machine learning model on an Amazon EC2 instance using the AWS Deep Learning Containers.</p></li>
+<li><p><a class="reference external" href="https://www.aws.training/learningobject/wbc?id=12531&amp;trk=gs_card">AWS Use Case: Call Center Management</a>: This training introduces you to the practical Amazon approach to machine learning (ML).</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../week_7/models.html" class="btn btn-neutral float-right" title="Mathematical Models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../week_5/tflow.html" class="btn btn-neutral float-left" title="Tensorflow" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, J.F. Koehler
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
